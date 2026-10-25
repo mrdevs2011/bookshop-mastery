@@ -22,9 +22,10 @@ Belgilar: ✓ tugagan (qaytadan YOZMA, ustidan yozma) • ▶ jarayonda (kim/qac
 | P7 Imtihon dvigateli | ✓ 2026-10-25 20:55 | 799c748 | bank 804, 5 mock, scoring/sertifikat/bashorat |
 | P8 Darslik sinxron | ✓ 2026-10-25 21:00 | 1ae4154 | D01–D03, verify_docs 0, data-src sync |
 | P9 Qotirish (a11y, perf, README, start.sh) | ✓ 2026-10-25 21:05 | 5f583c1 | lint/verify/sim/selftest OK; README+start.sh+a11y |
-| P10 Yakuniy hisobot | ☐ | — | |
+| P10 Yakuniy hisobot | ✓ 2026-10-25 21:10 | c9f69ba | REPORT.md — faqat ishga tushirilgan natijalar |
 
 ## Jurnal (eng yangisi tepada)
+- 2026-10-25 21:10 — P10 ✓: REPORT.md yozildi. Zanjir P0–P10 yopildi.
 - 2026-10-25 21:05 — P9 ✓: README/start.sh/a11y; lint+verify+sim+grader selftest OK. BookShopBomba da mahalliy diff bor (halol yozildi). Keyingi: P10.
 - 2026-10-25 20:55 — ▶ P9 boshlandi (Grok): README, start.sh, a11y, to'liq tekshiruv.
 - 2026-10-25 21:00 — P8 ✓: D01/D02/D03, verify_docs OK (3 exact sync). Keyingi: P9.
