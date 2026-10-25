@@ -75,6 +75,27 @@ BookView.objects.filter(book=b).count()  <span class="c"># nechta</span></pre>
 </div>
 
 <div class="nav-btns"><a class="sec" href="../02-struktura/index.html">← 2. Tuzilma</a><a href="../04-urls/index.html">4. URLs →</a></div>
+
+<section class="code-sync"><h3>Haqiqiy kod (main/models.py:1-16)</h3>
+<pre data-src="main/models.py:1-16">
+from os import name
+from statistics import mode
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Book(models.Model):
+    name = models.CharField(max_length=255)
+    yaratilgan_sanasi = models.DateField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    url = models.CharField(null=True)
+    public = models.BooleanField(default=False)
+
+class BookView(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+</pre></section>
+<p class="play-link"><a href="../app/index.html#/dojo">Shu konseptni o'yna →</a></p>
 </main>
 </body>
 </html>

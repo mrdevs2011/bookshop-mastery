@@ -21,7 +21,7 @@ body { display: block; }
 <h1 class="page">12. Eng ko‘p uchraydigan xatolar</h1>
 <table>
 <tr><th>Xato</th><th>Sabab</th><th>To‘g‘ri</th></tr>
-<tr><td>CSRF verification failed</td><td>Formada csrf_token yo‘q</td><td>{% csrf_token %}</td></tr>
+<tr><td>CSRF verification failed</td><td>Formada csrf_token yo‘q (middleware yoqilgan bo'lsa)</td><td>{% csrf_token %} + CsrfViewMiddleware</td></tr>
 <tr><td>DoesNotExist</td><td>.get() topmadi</td><td>try/except yoki filter</td></tr>
 <tr><td>login ishlamayapti</td><td>django_login chaqirilmagan</td><td>django_login(request, user)</td></tr>
 <tr><td>parol mos emas (to‘g‘ri bo‘lsa ham)</td><td>== bilan tekshirilgan</td><td>check_password</td></tr>

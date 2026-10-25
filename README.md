@@ -2,4 +2,4 @@
 
 Ochish: file:///home/muhamad/MR/tushuntirish/index.html
 
-Tartib: 01 → 10. Har bo‘limda mashq bor.
+Tartib: 01 → 14 (to'liq darslik). Har bo'limda mashq bor. App: app/index.html

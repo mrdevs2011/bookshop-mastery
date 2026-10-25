@@ -75,6 +75,51 @@
 <div class="drill"><h4>Yoddan</h4><p>index va logout ni to‘liq yozing.</p></div>
 
 <div class="nav-btns"><a class="sec" href="../04-urls/index.html">← 4. URLs</a><a href="../06-templates/index.html">6. Templates →</a></div>
+
+<section class="code-sync"><h3>Haqiqiy kod (core/views.py:1-40)</h3>
+<pre data-src="core/views.py:1-40">
+from django.contrib.auth.models import User
+from django.contrib.auth import login as django_login, logout as django_logout
+from django.http import HttpResponse, HttpRequest
+from django.shortcuts import redirect, render
+from django.utils.translation.trans_real import re
+from django.contrib import messages
+from main.models import Book, BookView
+
+def index(request):
+    """Bosh sahifa – loyihaning kirish sahifasi."""
+    if request.user.is_authenticated:
+        return redirect("/book-list/")
+    return redirect("/login/")
+
+def check_auth(request):
+    if request.user.is_authenticated == False:
+        return redirect("/login/")
+
+def book_list(request: HttpRequest):
+    if not request.user.is_authenticated:
+        return redirect("/login/")
+
+    user_id = request.user.id
+    books = Book.objects.filter(user_id=user_id).order_by("-id")
+
+    is_public = request.GET.get('public') == 'true'
+    if is_public:
+        books = Book.objects.filter(public=True).order_by("-id")
+
+    if request.method == "GET":
+        return render(request,"books-list.html", {"books": books, "is_public": is_public})
+
+
+def add_book(request: HttpRequest):
+    if not request.user.is_authenticated:
+            return redirect("/login/")
+
+    if request.method == "GET":
+        return render(request, "add_book.html")
+
+</pre></section>
+<p class="play-link"><a href="../app/index.html#/dojo">Shu konseptni o'yna →</a></p>
 </main>
 </body>
 </html>
