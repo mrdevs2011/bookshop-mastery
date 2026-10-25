@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xotira — BookShop Tushuntirish</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand">
+    <h1>Book<span>Shop</span></h1>
+    <p>100% tushuntirish · yoddan yozish</p>
+  </div>
+  <a class="" href="../index.html">Bosh sahifa</a>
+<div class="sec">ASOSLAR</div>
+<a class="" href="../01-kirish/index.html">1. Kirish</a>
+<a class="" href="../02-struktura/index.html">2. Loyiha tuzilmasi</a>
+<div class="sec">KOD QATLAMLARI</div>
+<a class="" href="../03-models/index.html">3. Models</a>
+<a class="" href="../04-urls/index.html">4. URLs</a>
+<a class="" href="../05-views/index.html">5. Views</a>
+<a class="" href="../06-templates/index.html">6. Templates</a>
+<div class="sec">FUNKSIYALAR</div>
+<a class="" href="../07-auth/index.html">7. Auth (login/signup)</a>
+<a class="" href="../08-kitoblar/index.html">8. Kitoblar</a>
+<div class="sec">MASHQ</div>
+<a class="" href="../09-amaliyot/index.html">9. Amaliyot</a>
+<a class="active" href="../10-xotira/index.html">10. Xotiraga yozish</a>
+
+</aside>
+<main class="main">
+
+<h1 class="page">10. Xotiraga yozish — final test</h1>
+<p class="lead">Agar shu yerdagi narsalarni yoddan yozsangiz — loyihani bilasiz.</p>
+
+<div class="drill">
+<h4>Test A — 30 soniya</h4>
+<p>Quyidagilarni og‘zaki ayting:</p>
+<ol>
+<li>Model → URL → View → Template nima qiladi?</li>
+<li>GET va POST farqi</li>
+<li>render va redirect farqi</li>
+</ol>
+</div>
+
+<div class="drill">
+<h4>Test B — qog‘ozda</h4>
+<pre>1. class Book(...):  # to‘liq
+2. urlpatterns = [ ... ]  # 9 ta path (admin + 8 app yo'li)
+3. def login(request): ...
+4. def add_book(request): ...
+5. def book_page(request, id): ...</pre>
+</div>
+
+<div class="drill">
+<h4>Test C — kompyuterda</h4>
+<p>Yangi bo‘sh papkada loyihani <strong>nolidan</strong> yozib chiqing (faqat eslab). Keyin BookShopBomba bilan diff qiling.</p>
+</div>
+
+<div class="idea">Maqsad: <span>1 ta ham kodga qaramasdan</span> xatosiz yozish. Shu 3 ta testni o‘tsangiz — yetganingiz.</div>
+
+<div class="card r">
+<strong>Xato qilsangiz:</strong> mos bo‘limga qayting (3=models, 4=urls, 5–8=views), qayta o‘qing, qayta yozing. 3 marta takrorlang.
+</div>
+
+<div class="ok">
+Tabriklaymiz — agar shu yergacha yetgan bo‘lsangiz, asosiy arxitektura sizda. Endi faqat mashq qoladi.
+</div>
+
+<div class="nav-btns"><a class="sec" href="../09-amaliyot/index.html">← 9. Amaliyot</a><span></span></div>
+<p class="play-link"><a href="../app/index.html#/dojo">Shu konseptni o'yna →</a></p>
+</main>
+</body>
+</html>

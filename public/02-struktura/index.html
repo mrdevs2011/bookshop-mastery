@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tuzilma — BookShop Tushuntirish</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand">
+    <h1>Book<span>Shop</span></h1>
+    <p>100% tushuntirish · yoddan yozish</p>
+  </div>
+  <a class="" href="../index.html">Bosh sahifa</a>
+<div class="sec">ASOSLAR</div>
+<a class="" href="../01-kirish/index.html">1. Kirish</a>
+<a class="active" href="../02-struktura/index.html">2. Loyiha tuzilmasi</a>
+<div class="sec">KOD QATLAMLARI</div>
+<a class="" href="../03-models/index.html">3. Models</a>
+<a class="" href="../04-urls/index.html">4. URLs</a>
+<a class="" href="../05-views/index.html">5. Views</a>
+<a class="" href="../06-templates/index.html">6. Templates</a>
+<div class="sec">FUNKSIYALAR</div>
+<a class="" href="../07-auth/index.html">7. Auth (login/signup)</a>
+<a class="" href="../08-kitoblar/index.html">8. Kitoblar</a>
+<div class="sec">MASHQ</div>
+<a class="" href="../09-amaliyot/index.html">9. Amaliyot</a>
+<a class="" href="../10-xotira/index.html">10. Xotiraga yozish</a>
+
+</aside>
+<main class="main">
+
+<h1 class="page">2. Loyiha tuzilmasi</h1>
+<p class="lead">Har bir papka va faylning vazifasi.</p>
+
+<pre>BookShopBomba/
+├── manage.py          <span class="c"># Django ni boshqarish (runserver, migrate...)</span>
+├── requirements.txt   <span class="c"># kerakli kutubxonalar</span>
+├── db.sqlite3         <span class="c"># ma’lumotlar bazasi</span>
+├── core/              <span class="c"># loyiha sozlamalari</span>
+│   ├── settings.py
+│   ├── urls.py        <span class="c"># BARCHA yo‘llar shu yerda</span>
+│   └── views.py       <span class="c"># BARCHA mantiq shu yerda</span>
+└── main/              <span class="c"># asosiy ilova</span>
+    ├── models.py      <span class="c"># jadval (Book, BookView)</span>
+    └── templates/     <span class="c"># HTML fayllar</span>
+        ├── login.html
+        ├── signup.html
+        ├── books-list.html
+        ├── book.html
+        ├── add_book.html
+        └── error.html</pre>
+
+<div class="box-grid">
+  <div class="box">models.py<small>Baza jadvallari</small></div>
+  <div class="box">urls.py<small>Qaysi URL → qaysi view</small></div>
+  <div class="box">views.py<small>Ishchi mantiq</small></div>
+  <div class="box">templates/<small>Ko‘rinish (HTML)</small></div>
+</div>
+
+<div class="idea">4 ta so‘z: <span>Model → URL → View → Template</span></div>
+
+<div class="card r">
+  <strong>Eslab qoling:</strong><br>
+  • Ma’lumot saqlash = <code>models.py</code><br>
+  • Yo‘l bog‘lash = <code>urls.py</code><br>
+  • Mantiq = <code>views.py</code><br>
+  • Ko‘rinish = <code>templates/</code>
+</div>
+
+<div class="quiz">
+  <h4>Tekshiruv</h4>
+  <p>Kitob nomi qayerda saqlanadi? Login funksiyasi qayerda? /book-list/ qayerda yozilgan?</p>
+  <div class="ok" style="margin-top:10px;"><strong>Javob:</strong> models.py (Book.name) · views.py · urls.py</div>
+</div>
+
+<div class="nav-btns"><a class="sec" href="../01-kirish/index.html">← 1. Kirish</a><a href="../03-models/index.html">3. Models →</a></div>
+<p class="play-link"><a href="../app/index.html#/dojo">Shu konseptni o'yna →</a></p>
+</main>
+</body>
+</html>
