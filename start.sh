@@ -26,4 +26,4 @@ export BS_PORT="$PORT"
 echo "App:      http://127.0.0.1:$PORT/app/index.html"
 echo "Darslik:  http://127.0.0.1:$PORT/index.html"
 echo "(Offline: app/index.html ni brauzerda to'g'ridan ochish mumkin.)"
-exec python3 app/server.py
+exec python3 scripts/local_server.py

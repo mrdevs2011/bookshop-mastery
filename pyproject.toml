@@ -1,0 +1,7 @@
+[project]
+name = "bookshop-mastery"
+version = "1.0.0"
+description = "Static course app"
+
+[tool.vercel]
+# not a Python/Django project

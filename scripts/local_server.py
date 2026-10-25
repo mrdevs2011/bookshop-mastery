@@ -18,7 +18,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import unquote, urlparse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(HERE)
+ROOT = os.path.dirname(HERE)  # repo root (scripts/ parent)
 sys.path.insert(0, os.path.join(ROOT, 'grader'))
 import run as grader  # noqa: E402
 
