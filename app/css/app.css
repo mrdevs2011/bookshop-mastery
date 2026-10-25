@@ -75,3 +75,8 @@ th{background:#121216}
 .pill.r{background:rgba(230,57,70,.2);color:var(--red)}
 .final-banner{background:linear-gradient(135deg,#1a1a1f,#2a1520);border:1px solid var(--red);border-radius:16px;padding:28px;text-align:center;margin:20px 0}
 @media(max-width:900px){body{flex-direction:column}.sidebar{width:100%;height:auto;position:relative}}
+
+/* a11y */
+.skip-link{position:absolute;left:-999px;top:0;background:#e63946;color:#fff;padding:8px 12px;z-index:9999}
+.skip-link:focus{left:8px;top:8px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
