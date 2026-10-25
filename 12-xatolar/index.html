@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xatolar</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+body { display: block; }
+.main { max-width: 860px; margin: 0 auto; padding: 36px 24px 80px; }
+.line { display: grid; grid-template-columns: 40px 1fr; gap: 12px; margin: 10px 0; padding: 12px; background: #fff; border-radius: 10px; border: 1px solid #e5ddd2; }
+.line .n { font-weight: 700; color: #e63946; }
+.back { display: inline-block; margin-bottom: 20px; color: #3d5a80; font-weight: 600; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="main">
+<a class="back" href="javascript:history.back()">← Orqaga</a>
+
+<h1 class="page">12. Eng ko‘p uchraydigan xatolar</h1>
+<table>
+<tr><th>Xato</th><th>Sabab</th><th>To‘g‘ri</th></tr>
+<tr><td>CSRF verification failed</td><td>Formada csrf_token yo‘q</td><td>{% csrf_token %}</td></tr>
+<tr><td>DoesNotExist</td><td>.get() topmadi</td><td>try/except yoki filter</td></tr>
+<tr><td>login ishlamayapti</td><td>django_login chaqirilmagan</td><td>django_login(request, user)</td></tr>
+<tr><td>parol mos emas (to‘g‘ri bo‘lsa ham)</td><td>== bilan tekshirilgan</td><td>check_password</td></tr>
+<tr><td>TemplateDoesNotExist</td><td>fayl nomi/path xato</td><td>templates/ ichida nom to‘g‘ri</td></tr>
+<tr><td>NoReverseMatch</td><td>url name xato</td><td>path nomini tekshir</td></tr>
+<tr><td>kitob ko‘rinmayapti</td><td>public=False va egasi emassiz</td><td>logika book_page da</td></tr>
+</table>
+
+</div>
+</body>
+</html>

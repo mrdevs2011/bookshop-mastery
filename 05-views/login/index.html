@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>login view</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+body { display: block; }
+.main { max-width: 860px; margin: 0 auto; padding: 36px 24px 80px; }
+.line { display: grid; grid-template-columns: 40px 1fr; gap: 12px; margin: 10px 0; padding: 12px; background: #fff; border-radius: 10px; border: 1px solid #e5ddd2; }
+.line .n { font-weight: 700; color: #e63946; }
+.back { display: inline-block; margin-bottom: 20px; color: #3d5a80; font-weight: 600; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="main">
+<a class="back" href="javascript:history.back()">← Orqaga</a>
+
+<h1 class="page">login — to‘liq satrma-satr</h1>
+<div class="flow"><div class="row">
+<span class="pill">GET</span><span class="arr">→</span><span class="pill b">forma</span>
+<span class="arr">|</span>
+<span class="pill r">POST</span><span class="arr">→</span><span class="pill o">tekshir</span><span class="arr">→</span><span class="pill g">sessiya</span>
+</div></div>
+<pre><span class="k">def</span> <span class="f">login</span>(request):
+    <span class="k">if</span> request.user.is_authenticated:
+        <span class="k">return</span> redirect(<span class="s">"/book-list/"</span>)
+
+    <span class="k">if</span> request.method == <span class="s">"GET"</span>:
+        <span class="k">return</span> render(request, <span class="s">"login.html"</span>)
+
+    username = request.POST.get(<span class="s">"username"</span>)
+    password = request.POST.get(<span class="s">"password"</span>)
+
+    <span class="k">try</span>:
+        user = User.objects.get(username=username)
+    <span class="k">except</span> User.DoesNotExist:
+        messages.error(request, <span class="s">"Xato!"</span>)
+        <span class="k">return</span> redirect(<span class="s">"/login/"</span>)
+
+    <span class="k">if</span> user.check_password(password):
+        django_login(request, user)
+        <span class="k">return</span> redirect(<span class="s">"/book-list/"</span>)
+
+    messages.error(request, <span class="s">"Xato!"</span>)
+    <span class="k">return</span> redirect(<span class="s">"/login/"</span>)</pre>
+
+<div class="line"><div class="n">1</div><div>Allaqachon kirgan bo‘lsa — qayta login kerak emas</div></div>
+<div class="line"><div class="n">2</div><div>GET = foydalanuvchi faqat sahifani ochdi → forma ko‘rsat</div></div>
+<div class="line"><div class="n">3</div><div>POST = forma yuborildi → username/password ol</div></div>
+<div class="line"><div class="n">4</div><div><code>User.objects.get</code> — bazadan user top. Yo‘q bo‘lsa DoesNotExist</div></div>
+<div class="line"><div class="n">5</div><div><code>check_password</code> — hash bilan solishtiradi (oddiy == emas!)</div></div>
+<div class="line"><div class="n">6</div><div><code>django_login</code> — sessiyaga yozadi, keyin request.user ishlaydi</div></div>
+<div class="line"><div class="n">7</div><div>Xato bo‘lsa messages + qayta /login/</div></div>
+
+<div class="warn">Parolni hech qachon <code>password == user.password</code> deb tekshirmang. Faqat check_password.</div>
+<div class="drill"><h4>Yoddan</h4><p>login ni to‘liq yozing (kamida 15 qator).</p></div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auth — BookShop Tushuntirish</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand">
+    <h1>Book<span>Shop</span></h1>
+    <p>100% tushuntirish · yoddan yozish</p>
+  </div>
+  <a class="" href="../index.html">Bosh sahifa</a>
+<div class="sec">ASOSLAR</div>
+<a class="" href="../01-kirish/index.html">1. Kirish</a>
+<a class="" href="../02-struktura/index.html">2. Loyiha tuzilmasi</a>
+<div class="sec">KOD QATLAMLARI</div>
+<a class="" href="../03-models/index.html">3. Models</a>
+<a class="" href="../04-urls/index.html">4. URLs</a>
+<a class="" href="../05-views/index.html">5. Views</a>
+<a class="" href="../06-templates/index.html">6. Templates</a>
+<div class="sec">FUNKSIYALAR</div>
+<a class="active" href="../07-auth/index.html">7. Auth (login/signup)</a>
+<a class="" href="../08-kitoblar/index.html">8. Kitoblar</a>
+<div class="sec">MASHQ</div>
+<a class="" href="../09-amaliyot/index.html">9. Amaliyot</a>
+<a class="" href="../10-xotira/index.html">10. Xotiraga yozish</a>
+
+</aside>
+<main class="main">
+
+<h1 class="page">7. Auth — login, signup, logout</h1>
+<p class="lead">Foydalanuvchini tizimga kiritish va chiqarish.</p>
+
+<div class="flow">
+<div class="row">
+<span class="pill">GET forma</span><span class="arr">→</span>
+<span class="pill r">POST tekshir</span><span class="arr">→</span>
+<span class="pill g">django_login</span><span class="arr">→</span>
+<span class="pill b">/book-list/</span>
+</div></div>
+
+<h2>login — qadamma-qadam</h2>
+<div class="step"><div class="num">1</div><div class="step-b">Allaqachon kirgan? → katalog</div></div>
+<div class="step"><div class="num">2</div><div class="step-b">GET → login.html</div></div>
+<div class="step"><div class="num">3</div><div class="step-b">POST → username, password ol</div></div>
+<div class="step"><div class="num">4</div><div class="step-b">User.objects.get(username=...) — yo‘q bo‘lsa xato</div></div>
+<div class="step"><div class="num">5</div><div class="step-b">user.check_password(password)</div></div>
+<div class="step"><div class="num">6</div><div class="step-b">To‘g‘ri → django_login → katalog</div></div>
+
+<pre><span class="k">def</span> <span class="f">login</span>(request):
+    <span class="k">if</span> request.user.is_authenticated:
+        <span class="k">return</span> redirect(<span class="s">"/book-list/"</span>)
+    <span class="k">if</span> request.method == <span class="s">"GET"</span>:
+        <span class="k">return</span> render(request, <span class="s">"login.html"</span>)
+    username = request.POST.get(<span class="s">"username"</span>)
+    password = request.POST.get(<span class="s">"password"</span>)
+    <span class="k">try</span>:
+        user = User.objects.get(username=username)
+    <span class="k">except</span> User.DoesNotExist:
+        messages.error(request, <span class="s">"Xato!"</span>)
+        <span class="k">return</span> redirect(<span class="s">"/login/"</span>)
+    <span class="k">if</span> user.check_password(password):
+        django_login(request, user)
+        <span class="k">return</span> redirect(<span class="s">"/book-list/"</span>)
+    messages.error(request, <span class="s">"Xato!"</span>)
+    <span class="k">return</span> redirect(<span class="s">"/login/"</span>)</pre>
+
+<h2>signup (mrsign)</h2>
+<ul>
+<li>Parollar mosmi?</li>
+<li>Username bandmi? (get → topilsa xato)</li>
+<li>User yarat → set_password → save → django_login</li>
+</ul>
+<pre>user = User(username=username)
+user.set_password(password)  <span class="c"># HECH QACHON ochiq saqlama</span>
+user.save()
+django_login(request, user)</pre>
+
+<div class="card r">
+<strong>Yodda:</strong> <code>set_password</code> hash qiladi. <code>check_password</code> tekshiradi. Oddiy <code>==</code> ishlatilmaydi.
+</div>
+
+<div class="drill"><h4>Yoddan</h4><p>login funksiyasini to‘liq yozing (GET + POST).</p></div>
+
+<div class="nav-btns"><a class="sec" href="../06-templates/index.html">← 6. Templates</a><a href="../08-kitoblar/index.html">8. Kitoblar →</a></div>
+</main>
+</body>
+</html>
