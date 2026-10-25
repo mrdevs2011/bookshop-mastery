@@ -18,13 +18,14 @@ Belgilar: ✓ tugagan (qaytadan YOZMA, ustidan yozma) • ▶ jarayonda (kim/qac
 | P3 Kontent A (M00–M05 + 1-batch rejimlar) | ✓ 2026-10-25 20:30 | 82c8275 | 143 konsept, 25 MC, 22 bug, 146 savol, 5 rejim, lint_bank 0 |
 | P4 Kontent B (M06–M12 + 2-batch rejimlar) | ✓ 2026-10-25 20:35 | a6dee35 | M06–M12 89 savol, jami 235; 7 yangi rejim; lint 0 |
 | P5 Kontent C (M13–M16, Sprint, Boss, ...) | ✓ 2026-10-25 20:40 | 1529afe | M13–M16 49 savol, jami 284; +6 rejim; lint 0 |
-| P6 Adaptiv dvigatel + sim_students | ▶ Grok (chat), 2026-10-25 20:40 | — | boshlandi |
+| P6 Adaptiv dvigatel + sim_students | ✓ 2026-10-25 20:50 | e6a37c1 | sim_students PASS; selector/mastery/srs ishlaydi |
 | P7 Imtihon dvigateli | ☐ | — | |
 | P8 Darslikni tuzatish va sinxron | ☐ | — | |
 | P9 Qotirish (a11y, perf, README, start.sh) | ☐ | — | |
 | P10 Yakuniy hisobot | ☐ | — | |
 
 ## Jurnal (eng yangisi tepada)
+- 2026-10-25 20:50 — P6 ✓: sim_students PASS (1–4 blok/aniqlandi, 5=100% core). Keyingi: P7.
 - 2026-10-25 20:40 — ▶ P6 boshlandi (Grok): selector sozlash + sim_students.py.
 - 2026-10-25 20:40 — P5 ✓: M13–M16 + Sprint/Boss/Teach-back/Gauntlet/Daily/Chaos. 284 savol, 18 rejim. Keyingi: P6.
 - 2026-10-25 20:34 — ▶ P5 boshlandi (Grok): M13–M16 + Sprint/Boss/Teach-back/Gauntlet/Daily/Chaos.
