@@ -1,190 +1,301 @@
-"""gen_scenarios.py tomonidan reference'ning TMP nusxasi ichida ishga tushiriladi (Django test muhiti, xotira DB).
-argv[1] = natija JSON yo'li. Har ssenariy seed holatidagi db nusxasidan boshlanadi (id lar barqaror)."""
+"""gen_scenarios.py shu faylni reference NUSXA ichida, BookShopBomba venv Python bilan ishga tushiradi.
+stdout: faqat JSON. Hammasi xotiradagi SQLite'da, sintetik ma'lumot bilan; har stsenariy tranzaksiya rollback bilan izolyatsiya."""
 import json
+import logging
 import os
-import re
-import shutil
 import sys
 
-sys.path.insert(0, os.environ['BS_TOOLS'])
-os.environ['DJANGO_SETTINGS_MODULE'] = 'core.settings'
+logging.disable(logging.CRITICAL)
+os.environ['DJANGO_SETTINGS_MODULE'] = '_genset'
+sys.path.insert(0, os.getcwd())
 
 import django  # noqa: E402
-
 django.setup()
-from django.conf import settings  # noqa: E402
 from django.contrib.auth.models import User  # noqa: E402
 from django.contrib.messages import get_messages  # noqa: E402
 from django.core.management import call_command  # noqa: E402
-from django.db import connection  # noqa: E402
+from django.db import transaction  # noqa: E402
 from django.test import Client  # noqa: E402
-from django.test.utils import CaptureQueriesContext, setup_test_environment  # noqa: E402
-
-import bs_seed  # noqa: E402
+from django.test.utils import setup_test_environment  # noqa: E402
 from main.models import Book, BookView  # noqa: E402
 
-settings.PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher']
-setup_test_environment()  # DEBUG qiymati reference'dagidek qoladi (haqiqiy loyihada DEBUG=True)
-call_command('migrate', verbosity=0, interactive=False)  # tmp nusxadagi db.sqlite3 (haqiqiy loyihaga tegmaydi)
-USERS = bs_seed.load()
-DB = str(settings.DATABASES['default']['NAME'])
-BAK = DB + '.seed'
-connection.close()
-shutil.copy(DB, BAK)  # seed holati; har ssenariy shundan boshlanadi (tranzaksiya emas: view IntegrityError ushlaydi)
-MAIN_TEMPLATES = {'login.html', 'signup.html', 'books-list.html', 'add_book.html', 'book.html', 'error.html', '404.html'}
+setup_test_environment()
+call_command('migrate', verbosity=0, interactive=False)
 
-SPEC = []
+PASS = {'alice': 'alice-pass-1', 'bob': 'bob-pass-1', 'root': 'root-pass-1'}
+ACTORS = {'anon': None, 'ega': 'alice', 'begona': 'bob', 'admin': 'root'}
+KNOWN = {'login.html', 'signup.html', 'books-list.html', 'add_book.html', 'book.html', 'error.html', '404.html'}
 
 
-def add(actor, method, path, data=None, note='', repeat=1):
-    SPEC.append({'actor': actor, 'method': method, 'path': path, 'data': data, 'note': note, 'repeat': repeat})
+def seed():
+    a = User.objects.create_user('alice', password=PASS['alice'])
+    b = User.objects.create_user('bob', password=PASS['bob'])
+    User.objects.create_superuser('root', password=PASS['root'])
+    b1 = Book.objects.create(name='Python asoslari', user=a, url='python.org', public=True)
+    Book.objects.create(name='Maxfiy kundalik', user=a, url='diary.example.com', public=False)
+    b3 = Book.objects.create(name='Django amaliyot', user=b, url='djangoproject.com', public=True)
+    Book.objects.create(name='Bobning sirlari', user=b, url='bob.example.com', public=False)
+    BookView.objects.create(book=b1, user=b)
+    BookView.objects.create(book=b3, user=a)
 
 
-ACTORS = ['anon', 'ali', 'vali', 'admin']
-for a in ACTORS:
-    add(a, 'GET', '/', note="bosh sahifa")
-for a in ACTORS:
-    for q in ['', '?public=true', '?public=false', '?public=True', '?public=1']:
-        add(a, 'GET', '/book-list/' + q, note="kitoblar ro'yxati" + (' ' + q if q else ''))
-add('anon', 'POST', '/book-list/', {}, "ro'yxatga POST (kirmagan)")
-add('ali', 'POST', '/book-list/', {}, "ro'yxatga POST (kirgan)")
-add('ali', 'DELETE', '/book-list/', None, "ro'yxatga DELETE (kirgan)")
-for a in ACTORS:
-    add(a, 'GET', '/add-book/', note="kitob qo'shish formasi")
-ADD = [
-    ('private-https', {'name': 'Yangi kitob', 'url': 'https://example.uz/yangi'}),
-    ('public-http', {'name': 'Ochiq kitob', 'url': 'http://example.uz/ochiq', 'public': 'on'}),
-    ('no-scheme', {'name': 'Sxemasiz', 'url': 'example.uz/sxemasiz'}),
-    ('ftp', {'name': 'FTP kitob', 'url': 'ftp://example.uz/f'}),
-    ('empty-name', {'name': '', 'url': 'example.uz/b'}),
-    ('no-url', {'name': 'URL yo‘q'}),
-    ('no-name', {'url': 'example.uz/n'}),
-    ('public-off', {'name': 'Public off', 'url': 'example.uz/x', 'public': 'off'}),
-    ('empty', {}),
-]
-for tag, d in ADD:
-    add('ali', 'POST', '/add-book/', d, 'kitob qo‘shish: ' + tag)
-add('anon', 'POST', '/add-book/', ADD[0][1], "kitob qo'shish (kirmagan)")
-add('vali', 'POST', '/add-book/', ADD[1][1], "kitob qo'shish (boshqa foydalanuvchi)")
-add('ali', 'DELETE', '/add-book/', None, "add-book ga DELETE")
-for bid, what in [(1, 'ali public'), (2, 'ali private'), (3, 'vali public'), (4, 'vali private'), (999, "yo'q id")]:
-    for a in ACTORS:
-        add(a, 'GET', '/book/%d/' % bid, note='kitob sahifasi: %s' % what)
-add('vali', 'POST', '/book/1/', {}, "kitob sahifasiga POST")
-add('sardor', 'GET', '/book/17/', None, "yangi ko'ruvchi, ikki marta ochadi: noyob hisob", repeat=2)
-add('ali', 'GET', '/book/abc/', None, "int bo'lmagan id")
-add('ali', 'GET', '/book/1', None, "oxirgi / yo'q (APPEND_SLASH)")
-add('anon', 'GET', '/book-list', None, "oxirgi / yo'q")
-LOGIN = [
-    ('ok', {'username': 'ali', 'password': 'pw-ali'}),
-    ('wrong-password', {'username': 'ali', 'password': 'xato'}),
-    ('unknown-user', {'username': 'yoq', 'password': 'x'}),
-    ('missing-both', {}),
-    ('only-username', {'username': 'ali'}),
-]
-add('anon', 'GET', '/login/', note='login formasi')
-add('ali', 'GET', '/login/', note='kirgan foydalanuvchi login ochadi')
-for tag, d in LOGIN:
-    add('anon', 'POST', '/login/', d, 'login: ' + tag)
-add('ali', 'POST', '/login/', {'username': 'vali', 'password': 'pw-vali'}, 'kirgan foydalanuvchi boshqa akkauntga kirmoqchi')
-add('anon', 'DELETE', '/login/', None, 'login ga DELETE')
-SIGN = [
-    ('ok', {'username': 'yangi', 'password': 'Sir-123', 'password_confirm_ui': 'Sir-123'}),
-    ('mismatch', {'username': 'yangi', 'password': 'Sir-123', 'password_confirm_ui': 'Boshqa-1'}),
-    ('taken', {'username': 'ali', 'password': 'Sir-123', 'password_confirm_ui': 'Sir-123'}),
-    ('empty-username', {'username': '', 'password': 'Sir-123', 'password_confirm_ui': 'Sir-123'}),
-    ('weak-password', {'username': 'zaif', 'password': '1', 'password_confirm_ui': '1'}),
-    ('missing-confirm', {'username': 'yangi', 'password': 'Sir-123'}),
-    ('empty', {}),
-]
-add('anon', 'GET', '/signup/', note="ro'yxatdan o'tish formasi")
-add('ali', 'GET', '/signup/', note='kirgan foydalanuvchi signup ochadi')
-for tag, d in SIGN:
-    add('anon', 'POST', '/signup/', d, 'signup: ' + tag)
-add('ali', 'POST', '/signup/', SIGN[0][1], 'kirgan foydalanuvchi signup POST')
-add('anon', 'DELETE', '/signup/', None, 'signup ga DELETE')
-add('ali', 'GET', '/logout/', note='logout GET (kirgan)')
-add('anon', 'GET', '/logout/', note='logout GET (kirmagan)')
-add('ali', 'POST', '/logout/', {}, 'logout POST')
-add('anon', 'GET', '/error/', note='/error/ sahifasi')
-add('ali', 'GET', '/error/', note='/error/ sahifasi (kirgan)')
-add('anon', 'GET', '/admin/', note='admin (kirmagan)')
-add('ali', 'GET', '/admin/', note='admin (oddiy foydalanuvchi)')
-add('admin', 'GET', '/admin/', note='admin (superuser)')
-add('anon', 'GET', '/admin/login/', note='admin login sahifasi')
-add('anon', 'GET', '/yoq/', note="mavjud bo'lmagan URL")
-add('ali', 'GET', '/yoq/', note="mavjud bo'lmagan URL (kirgan)")
-
-
-def slug(s):
-    return re.sub(r'[^a-z0-9]+', '-', s.lower()).strip('-') or 'root'
+def make_client(actor):
+    c = Client(raise_request_exception=False)
+    name = ACTORS[actor]
+    if name:
+        c.force_login(User.objects.get(username=name))
+    return c
 
 
 def snap():
-    return ({u.pk: u for u in User.objects.all()}, {b.pk: b for b in Book.objects.select_related('user')},
-            {v.pk: v for v in BookView.objects.select_related('user')})
+    return {'books': set(Book.objects.values_list('id', flat=True)),
+            'views': set(BookView.objects.values_list('id', flat=True)),
+            'users': set(User.objects.values_list('id', flat=True))}
 
 
-def run_one(sp, idx):
-    if True:
-        connection.close()
-        shutil.copy(BAK, DB)
-        before = snap()
-        c = Client(raise_request_exception=False)
-        if sp['actor'] != 'anon':
-            c.force_login(USERS[sp['actor']])
-        fn = getattr(c, sp['method'].lower())
-        resp = None
-        with CaptureQueriesContext(connection) as q:
-            for _ in range(sp['repeat']):
-                resp = fn(sp['path'], sp['data']) if sp['method'] in ('POST', 'PUT', 'PATCH') else fn(sp['path'])
-        res = {'status': resp.status_code}
-        loc = resp.headers.get('Location')
-        if loc:
-            res['location'] = loc
-        exc = getattr(resp, 'exc_info', None)
-        if exc:
-            res['error'] = {'type': exc[0].__name__, 'text': str(exc[1])[:160]}
-        res['templates'] = sorted({t.name for t in (resp.templates or []) if t.name in MAIN_TEMPLATES})
-        if any((t.name or '').startswith('admin/') for t in (resp.templates or [])):
-            res['admin_page'] = True
-        ctx = resp.context
-        if ctx is not None and 'books-list.html' in res['templates']:
-            res['render'] = {'is_public': ctx['is_public'], 'books': [{'id': b.pk, 'name': b.name, 'owner': b.user.username,
-                             'views': b.bookview_set.count()} for b in ctx['books']]}
-        elif ctx is not None and 'book.html' in res['templates']:
-            b = ctx['book']
-            res['render'] = {'book': b.name, 'owner': b.user.username, 'soni': ctx['soni']}
-        elif resp.status_code == 200 and not res['templates'] and not res.get('admin_page') and 'text' in resp.headers.get('Content-Type', ''):
-            res['body'] = resp.content.decode('utf-8', 'replace')[:200]
-        msgs = [[m.level_tag, str(m)] for m in get_messages(resp.wsgi_request)]
-        if msgs:
-            res['messages'] = msgs
-        sid = c.session.get('_auth_user_id')
-        res['session_user'] = User.objects.get(pk=sid).username if sid else None
-        res['queries'] = len(q)
-        after = snap()
-        delta = {'users': len(after[0]) - len(before[0]), 'books': len(after[1]) - len(before[1]), 'views': len(after[2]) - len(before[2])}
-        res['db_delta'] = delta
-        new_u = [u for k, u in after[0].items() if k not in before[0]]
-        new_b = [b for k, b in after[1].items() if k not in before[1]]
-        new_v = [v for k, v in after[2].items() if k not in before[2]]
-        if new_u:
-            res['new_users'] = [{'username': u.username, 'hashed': '$' in u.password and u.password != 'Sir-123'} for u in new_u]
-        if new_b:
-            res['new_books'] = [{'id': b.pk, 'name': b.name, 'url': b.url, 'public': b.public, 'owner': b.user.username} for b in new_b]
-        if new_v:
-            res['new_views'] = [{'book_id': v.book_id, 'user': v.user.username} for v in new_v]
-    sid_ = '%03d-%s-%s-%s' % (idx, sp['actor'], sp['method'].lower(), slug(sp['path']))
-    out = {'id': sid_, 'actor': sp['actor'], 'method': sp['method'], 'path': sp['path'], 'note': sp['note'], 'result': res}
-    if sp['data'] is not None:
-        out['data'] = sp['data']
-    if sp['repeat'] != 1:
-        out['repeat'] = sp['repeat']
+def short(s):
+    return s if s is None or len(s) <= 40 else '%s…(%d belgi)' % (s[:10], len(s))
+
+
+def diff(b, a):
+    out = {}
+    db = {}
+    for k in ('books', 'views', 'users'):
+        n = len(a[k]) - len(b[k])
+        if n:
+            db[k] = n
+    if db:
+        out['db'] = db
+    nb = [{'name': short(x.name), 'url': x.url, 'public': x.public, 'owner': x.user.username}
+          for x in Book.objects.filter(id__in=sorted(a['books'] - b['books'])).order_by('id')]
+    if nb:
+        out['new_book'] = nb[0] if len(nb) == 1 else nb
+    nv = ['%d:%s' % (x.book_id, x.user.username)
+          for x in BookView.objects.filter(id__in=sorted(a['views'] - b['views'])).order_by('id')]
+    if nv:
+        out['new_views'] = nv
+    nu = [x.username for x in User.objects.filter(id__in=sorted(a['users'] - b['users'])).order_by('id')]
+    if nu:
+        out['new_user'] = nu[0] if len(nu) == 1 else nu
     return out
 
 
-items = [run_one(sp, i + 1) for i, sp in enumerate(SPEC)]
-with open(sys.argv[1], 'w', encoding='utf-8') as f:
-    json.dump({'django': django.get_version(), 'debug': bool(settings.DEBUG), 'items': items}, f, ensure_ascii=False)
-print('ok', len(items))
+def ctx_get(resp, key):
+    ctx = getattr(resp, 'context', None)
+    if not ctx:
+        return None
+    try:
+        return ctx[key]
+    except KeyError:
+        return None
+
+
+def info(resp, c):
+    d = {'status': resp.status_code}
+    loc = resp.get('Location')
+    if loc:
+        d['location'] = loc
+    exc = getattr(resp, 'exc_info', None)
+    if exc:
+        d['exception'] = exc[0].__name__
+    tpls = []
+    for t in (getattr(resp, 'templates', None) or []):
+        if t.name in KNOWN and t.name not in tpls:
+            tpls.append(t.name)
+    if tpls:
+        d['templates'] = tpls
+    elif resp.status_code == 200 and not exc and resp.get('Content-Type', '').startswith('text/html'):
+        body = resp.content.decode()
+        if len(body) < 200:
+            d['text'] = body
+    books = ctx_get(resp, 'books')
+    if books is not None:
+        d['books'] = [b.name for b in books]
+    for k in ('is_public', 'soni'):
+        v = ctx_get(resp, k)
+        if v is not None:
+            d[k] = v
+    bk = ctx_get(resp, 'book')
+    if bk is not None and hasattr(bk, 'name'):
+        d['book'] = bk.name
+    msgs = [{'level': m.level_tag, 'text': m.message} for m in get_messages(resp.wsgi_request)]
+    if msgs:
+        d['messages'] = msgs
+    uid = c.session.get('_auth_user_id')
+    d['session_user'] = User.objects.get(pk=uid).username if uid else None
+    return d
+
+
+def do(c, spec, follow=False):
+    m = spec['method']
+    path = spec['path']
+    if m == 'GET':
+        return c.get(path, follow=follow)
+    if m == 'POST':
+        return c.post(path, spec.get('payload') or {}, follow=follow)
+    return getattr(c, m.lower())(path, follow=follow)
+
+
+def run_step(c, spec, follow=False):
+    b = snap()
+    resp = do(c, spec, follow)
+    a = snap()
+    d = {'actor': spec['actor'], 'method': spec['method'], 'path': spec['path']}
+    if spec.get('payload') is not None:
+        d['payload'] = spec['payload']
+    if follow:
+        d['chain'] = [[u, s] for (u, s) in resp.redirect_chain]
+    d.update(info(resp, c))
+    d.update(diff(b, a))
+    return d
+
+
+def fresh(fn):
+    with transaction.atomic():
+        seed()
+        try:
+            return fn()
+        finally:
+            transaction.set_rollback(True)
+
+
+def S(actor, method, path, payload=None, label=''):
+    return {'actor': actor, 'method': method, 'path': path, 'payload': payload, 'label': label}
+
+
+GET_PATHS = ['/', '/book-list/', '/book-list/?public=true', '/book-list/?public=false', '/add-book/',
+             '/book/1/', '/book/2/', '/book/3/', '/book/4/', '/book/999/', '/login/', '/signup/', '/logout/',
+             '/error/', '/admin/', '/nonexistent/', '/book/abc/']
+
+single = []
+for actor in ACTORS:
+    for p in GET_PATHS:
+        single.append(S(actor, 'GET', p))
+for actor in ACTORS:
+    single += [S(actor, 'POST', '/book-list/'), S(actor, 'PUT', '/book-list/'), S(actor, 'DELETE', '/add-book/'),
+               S(actor, 'POST', '/book/1/'), S(actor, 'POST', '/book/2/'), S(actor, 'PUT', '/login/'),
+               S(actor, 'DELETE', '/signup/'), S(actor, 'POST', '/logout/')]
+
+ADD = [
+    ('private-https', {'name': 'Yangi kitob', 'url': 'https://uz.wikipedia.org/wiki/Django'}),
+    ('public-http', {'name': 'Ochiq', 'url': 'http://example.org', 'public': 'on'}),
+    ('url-sxemasiz', {'name': 'X', 'url': 'example.com'}),
+    ('ftp', {'name': 'F', 'url': 'ftp://files.example.com'}),
+    ('url-yoq', {'name': 'Urlsiz'}),
+    ('public-true-matn', {'name': 'T', 'url': 'a.b', 'public': 'true'}),
+    ('bosh-nom', {'name': '', 'url': 'a.b'}),
+    ('bosh-url', {'name': 'E', 'url': ''}),
+    ('HTTPS-katta', {'name': 'K', 'url': 'HTTPS://x.com'}),
+    ('uzun-nom', {'name': 'N' * 300, 'url': 'a.b'}),
+]
+for actor in ('anon', 'ega', 'admin'):
+    for lbl, pl in ADD:
+        single.append(S(actor, 'POST', '/add-book/', pl, lbl))
+
+LOGIN = [
+    ('togri', {'username': 'alice', 'password': PASS['alice']}),
+    ('xato-parol', {'username': 'alice', 'password': 'nope'}),
+    ('yoq-user', {'username': 'ghost', 'password': 'x'}),
+    ('bosh', {'username': '', 'password': ''}),
+    ('parolsiz', {'username': 'alice'}),
+    ('katta-harf', {'username': 'Alice', 'password': PASS['alice']}),
+]
+for actor in ('anon', 'ega'):
+    for lbl, pl in LOGIN:
+        single.append(S(actor, 'POST', '/login/', pl, lbl))
+
+SIGN = [
+    ('yangi-zaif-parol', {'username': 'charlie', 'password': 'x', 'password_confirm_ui': 'x'}),
+    ('mos-emas', {'username': 'charlie', 'password': 'abc', 'password_confirm_ui': 'abd'}),
+    ('band-user', {'username': 'alice', 'password': 'x', 'password_confirm_ui': 'x'}),
+    ('bosh-user', {'username': '', 'password': 'x', 'password_confirm_ui': 'x'}),
+    ('tasdiqsiz', {'username': 'charlie', 'password': 'x'}),
+    ('katta-harf-user', {'username': 'ALICE', 'password': 'x', 'password_confirm_ui': 'x'}),
+    ('probelli-user', {'username': 'a b', 'password': 'x', 'password_confirm_ui': 'x'}),
+]
+for actor in ('anon', 'ega'):
+    for lbl, pl in SIGN:
+        single.append(S(actor, 'POST', '/signup/', pl, lbl))
+
+FOLLOW = [
+    S('anon', 'POST', '/login/', LOGIN[1][1], 'xato-parol'),
+    S('anon', 'POST', '/login/', LOGIN[0][1], 'togri'),
+    S('anon', 'POST', '/signup/', SIGN[1][1], 'mos-emas'),
+    S('anon', 'POST', '/signup/', SIGN[2][1], 'band-user'),
+    S('anon', 'POST', '/signup/', SIGN[0][1], 'yangi'),
+    S('anon', 'GET', '/book/1/', None, 'login-ga'),
+    S('anon', 'GET', '/', None, 'bosh'),
+    S('ega', 'GET', '/', None, 'bosh'),
+    S('ega', 'GET', '/logout/', None, 'chiqish'),
+    S('ega', 'POST', '/add-book/', ADD[0][1], 'private'),
+    S('ega', 'POST', '/add-book/', ADD[1][1], 'public'),
+    S('ega', 'POST', '/add-book/', ADD[3][1], 'ftp'),
+]
+
+SEQ = [
+    ('noyob-korishlar', [S('ega', 'GET', '/book/3/'), S('begona', 'GET', '/book/3/'), S('begona', 'GET', '/book/3/'),
+                         S('admin', 'GET', '/book/3/'), S('ega', 'GET', '/book/3/')]),
+    ('private-ega-korishi', [S('ega', 'GET', '/book/2/'), S('ega', 'GET', '/book/2/'), S('begona', 'GET', '/book/2/')]),
+    ('egasi-public-ochadi', [S('begona', 'GET', '/book/3/'), S('ega', 'GET', '/book/1/'), S('begona', 'GET', '/book/1/')]),
+    ('signup-logout-login', [S('anon', 'POST', '/signup/', SIGN[0][1]), S('anon', 'GET', '/logout/'),
+                             S('anon', 'POST', '/login/', {'username': 'charlie', 'password': 'x'}),
+                             S('anon', 'GET', '/book-list/')]),
+    ('public-qoshish-va-royxat', [S('ega', 'POST', '/add-book/', ADD[1][1]), S('begona', 'GET', '/book-list/?public=true'),
+                                  S('ega', 'GET', '/book-list/?public=true'), S('ega', 'GET', '/book-list/')]),
+    ('private-boshqaga-korinmaydi', [S('ega', 'POST', '/add-book/', ADD[0][1]), S('begona', 'GET', '/book-list/?public=true'),
+                                     S('begona', 'GET', '/book/5/'), S('ega', 'GET', '/book/5/')]),
+]
+
+
+def run_group(specs, follow=False):
+    out = []
+    for spec in specs:
+        def go(spec=spec):
+            return run_step(make_client(spec['actor']), spec, follow)
+        d = fresh(go)
+        if spec.get('label'):
+            d['label'] = spec['label']
+        out.append(d)
+    return out
+
+
+def run_seq(name, steps):
+    def go():
+        clients = {}
+        res = []
+        for st in steps:
+            c = clients.setdefault(st['actor'], make_client(st['actor']))
+            res.append(run_step(c, st))
+        return res
+    return {'name': name, 'steps': fresh(go)}
+
+
+def key(d):
+    return (d['actor'], d['method'], d['path'], d.get('label', ''))
+
+
+single_out = run_group(single)
+follow_out = run_group(FOLLOW, follow=True)
+seq_out = [run_seq(n, s) for n, s in SEQ]
+keys = [key(d) for d in single_out]
+assert len(keys) == len(set(keys)), 'takroriy stsenariy kaliti'
+for i, d in enumerate(single_out):
+    d['id'] = 'S%03d' % (i + 1)
+for i, d in enumerate(follow_out):
+    d['id'] = 'F%02d' % (i + 1)
+for i, d in enumerate(seq_out):
+    d['id'] = 'Q%02d' % (i + 1)
+
+meta = {
+    'note': 'Sintetik ma\'lumot; natijalar reference nusxada Django Client bilan olingan (haqiqiy).',
+    'users': [{'username': 'alice', 'role': 'ega'}, {'username': 'bob', 'role': 'begona'},
+              {'username': 'root', 'role': 'admin'}],
+    'books': [{'id': 1, 'name': 'Python asoslari', 'owner': 'alice', 'public': True},
+              {'id': 2, 'name': 'Maxfiy kundalik', 'owner': 'alice', 'public': False},
+              {'id': 3, 'name': 'Django amaliyot', 'owner': 'bob', 'public': True},
+              {'id': 4, 'name': 'Bobning sirlari', 'owner': 'bob', 'public': False}],
+    'views': ['1:bob', '3:alice'],
+    'actors': {'anon': None, 'ega': 'alice', 'begona': 'bob', 'admin': 'root'},
+}
+sys.stdout.write(json.dumps({'meta': meta, 'single': single_out, 'follow': follow_out, 'seq': seq_out},
+                            ensure_ascii=False, sort_keys=True))
