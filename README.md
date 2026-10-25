@@ -57,3 +57,15 @@ python3 grader/run.py --selftest
 ## Manba
 
 O'quv maqsadida. Haqiqiy loyiha: `~/MR/BookShopBomba`.
+
+
+## Vercel (statik)
+
+Repo: https://github.com/mrdevs2011/bookshop-mastery
+
+Import qilinganda Framework = Other. Deploy dan keyin:
+- Darslik: `https://<project>.vercel.app/`
+- App: `https://<project>.vercel.app/app/`
+
+**Cheklov:** Django grader API Vercelda ishlamaydi (faqat lokal `./start.sh`).
+Mashq, rejimlar, imtihon mock, mastery — to'liq offline/static.
