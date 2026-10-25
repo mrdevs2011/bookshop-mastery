@@ -20,11 +20,12 @@ Belgilar: ✓ tugagan (qaytadan YOZMA, ustidan yozma) • ▶ jarayonda (kim/qac
 | P5 Kontent C (M13–M16, Sprint, Boss, ...) | ✓ 2026-10-25 20:40 | 1529afe | M13–M16 49 savol, jami 284; +6 rejim; lint 0 |
 | P6 Adaptiv dvigatel + sim_students | ✓ 2026-10-25 20:50 | e6a37c1 | sim_students PASS; selector/mastery/srs ishlaydi |
 | P7 Imtihon dvigateli | ✓ 2026-10-25 20:55 | 799c748 | bank 804, 5 mock, scoring/sertifikat/bashorat |
-| P8 Darslikni tuzatish va sinxron | ☐ | — | |
+| P8 Darslik sinxron | ▶ Grok (chat), 2026-10-25 20:51 | — | boshlandi |
 | P9 Qotirish (a11y, perf, README, start.sh) | ☐ | — | |
 | P10 Yakuniy hisobot | ☐ | — | |
 
 ## Jurnal (eng yangisi tepada)
+- 2026-10-25 20:51 — ▶ P8 boshlandi (Grok): D01–D02, data-src, verify_docs.
 - 2026-10-25 20:55 — P7 ✓: exam_bank 804, 5 mock, scoring+certificate+predictor. Keyingi: P8.
 - 2026-10-25 20:48 — ▶ P7 boshlandi (Grok): muhrlangan bank, 5 mock, scoring, sertifikat.
 - 2026-10-25 20:50 — P6 ✓: sim_students PASS (1–4 blok/aniqlandi, 5=100% core). Keyingi: P7.
