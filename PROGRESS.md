@@ -17,7 +17,7 @@ Belgilar: ✓ tugagan (qaytadan YOZMA, ustidan yozma) • ▶ jarayonda (kim/qac
 | P2 Haqiqat vositalari (server.py, grader, mutantlar, gen_*) | ✓ 2026-10-25 20:05 | 1b0e948 | server+grader+mutants 77/77, scenarios 99, terminal 109 cmd, sql 35 case; selftest OK |
 | P3 Kontent A (M00–M05 + 1-batch rejimlar) | ✓ 2026-10-25 20:30 | 82c8275 | 143 konsept, 25 MC, 22 bug, 146 savol, 5 rejim, lint_bank 0 |
 | P4 Kontent B (M06–M12 + 2-batch rejimlar) | ✓ 2026-10-25 20:35 | a6dee35 | M06–M12 89 savol, jami 235; 7 yangi rejim; lint 0 |
-| P5 Kontent C (M13–M16, Sprint, Boss, ...) | ☐ | — | |
+| P5 Kontent C (M13–M16, Sprint, Boss, ...) | ▶ Grok (chat), 2026-10-25 20:34 | — | boshlandi |
 | P6 Adaptiv dvigatel + sim_students | ☐ | — | |
 | P7 Imtihon dvigateli | ☐ | — | |
 | P8 Darslikni tuzatish va sinxron | ☐ | — | |
@@ -25,6 +25,7 @@ Belgilar: ✓ tugagan (qaytadan YOZMA, ustidan yozma) • ▶ jarayonda (kim/qac
 | P10 Yakuniy hisobot | ☐ | — | |
 
 ## Jurnal (eng yangisi tepada)
+- 2026-10-25 20:34 — ▶ P5 boshlandi (Grok): M13–M16 + Sprint/Boss/Teach-back/Gauntlet/Daily/Chaos.
 - 2026-10-25 20:35 — P4 ✓: M06–M12 savollar + Bug Hunt/Matrix/ORM/Migration/Template/Terminal/Reverse. lint 0. Keyingi: P5.
 - 2026-10-25 20:28 — ▶ P4 boshlandi (Grok): M06–M12 savollar + Bug Hunt, Matrix, ORM, Migration, Template, Terminal, Reverse.
 - 2026-10-25 20:30 — P3 ✓: savollar 146, lint_bank OK, 5 rejim. Keyingi: P4.
