@@ -230,6 +230,66 @@ def grade(files, timeout=TIMEOUT):
         res['ms'] = int((time.time() - t0) * 1000)
 
 
+_SIMPLE = {
+    ('check',), ('showmigrations',), ('showmigrations', 'main'), ('showmigrations', '--list'),
+    ('makemigrations', '--check', '--dry-run'), ('makemigrations', '--dry-run'), ('makemigrations', 'main', '--dry-run'),
+    ('makemigrations', '--dry-run', '-v', '3'), ('migrate',), ('migrate', '--plan'), ('--version',),
+}
+_SQLMIG = re.compile(r'^\d{4}(_[A-Za-z0-9_]+)?$')
+
+
+def manage_args_ok(args):
+    """/api/run uchun oq ro'yxat: faqat xavfsiz, tushunarli manage.py buyruqlari."""
+    if not isinstance(args, list) or not args or not all(isinstance(a, str) for a in args):
+        return False
+    t = tuple(args)
+    if t in _SIMPLE:
+        return True
+    if len(t) == 3 and t[0] == 'sqlmigrate' and t[1] == 'main' and _SQLMIG.match(t[2]):
+        return True
+    if len(t) == 3 and t[0] == 'shell' and t[1] == '-c' and 0 < len(t[2]) <= 2000:
+        return True
+    return False
+
+
+def run_manage(files, args, timeout=TIMEOUT):
+    """Talaba fayllari bilan tmp nusxada `manage.py <args>` ni bajaradi. -> {status, code, output, ms, note}"""
+    t0 = time.time()
+    res = {'status': 'ok', 'code': None, 'output': '', 'ms': 0, 'note': ''}
+    if not manage_args_ok(args):
+        res.update(status='bad_input', note="Bu buyruq ruxsat etilmagan. Ruxsat: check, showmigrations, makemigrations [--dry-run|--check], migrate, sqlmigrate main NNNN, shell -c '...'.")
+        return res
+    files = files or {}
+    if not isinstance(files, dict) or len(files) > MAX_FILES:
+        res.update(status='bad_input', note="Fayllar noto'g'ri.")
+        return res
+    for p, c in files.items():
+        if not allowed(p) or not isinstance(c, str) or len(c.encode('utf-8')) > MAX_FILE_BYTES:
+            res.update(status='bad_input', note="Ruxsat etilmagan yo'l yoki juda katta fayl: %r" % (p,))
+            return res
+    tmp = tempfile.mkdtemp(prefix='bsrun-')
+    try:
+        proj = _prepare(files, tmp)
+        manage = [PYTHON, 'manage.py']
+        if args[0] == 'shell':
+            code, out, to = _run(manage + ['migrate', '--noinput', '-v', '0'], tmp, proj, timeout)
+            if to or code != 0:
+                res.update(status='timeout' if to else 'failed', code=code, output=out.strip()[-4000:],
+                           note='Shell uchun baza tayyorlanmadi (migratsiya xato).')
+                return res
+        code, out, to = _run(manage + list(args), tmp, proj, timeout)
+        res['code'] = code
+        res['output'] = out.strip()[-8000:]
+        if to:
+            res.update(status='timeout', note="Buyruq %d soniyada tugamadi." % timeout)
+        elif code != 0:
+            res.update(status='failed', note=explain(out))
+        return res
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+        res['ms'] = int((time.time() - t0) * 1000)
+
+
 def read_reference():
     files = {}
     for root, dirs, names in os.walk(REFERENCE):
