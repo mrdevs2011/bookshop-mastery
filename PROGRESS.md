@@ -16,7 +16,7 @@ Belgilar: ✓ tugagan (qaytadan YOZMA, ustidan yozma) • ▶ jarayonda (kim/qac
 | P1 Poydevor (core/* modullar, birlik testlar) | ✓ 2026-10-25 19:10 | a4f0060 | 12 core modul (rng, srs, ledger, state, mastery, selector, router, normalize, diff, hl, ui, editor) + boot.js; 150 birlik test: node 142 o‘tdi (+8 DOM testi o‘tkazib yuborildi), brauzerda (headless chromium) 150/150; app `file://` da konsol xatosiz |
 | P2 Haqiqat vositalari (server.py, grader, mutantlar, gen_*) | ✓ 2026-10-25 20:05 | 1b0e948 | server+grader+mutants 77/77, scenarios 99, terminal 109 cmd, sql 35 case; selftest OK |
 | P3 Kontent A (M00–M05 + 1-batch rejimlar) | ✓ 2026-10-25 20:30 | 82c8275 | 143 konsept, 25 MC, 22 bug, 146 savol, 5 rejim, lint_bank 0 |
-| P4 Kontent B (M06–M12 + 2-batch rejimlar) | ☐ | — | |
+| P4 Kontent B (M06–M12 + 2-batch rejimlar) | ▶ Grok (chat), 2026-10-25 20:28 | — | boshlandi |
 | P5 Kontent C (M13–M16, Sprint, Boss, ...) | ☐ | — | |
 | P6 Adaptiv dvigatel + sim_students | ☐ | — | |
 | P7 Imtihon dvigateli | ☐ | — | |
@@ -25,6 +25,7 @@ Belgilar: ✓ tugagan (qaytadan YOZMA, ustidan yozma) • ▶ jarayonda (kim/qac
 | P10 Yakuniy hisobot | ☐ | — | |
 
 ## Jurnal (eng yangisi tepada)
+- 2026-10-25 20:28 — ▶ P4 boshlandi (Grok): M06–M12 savollar + Bug Hunt, Matrix, ORM, Migration, Template, Terminal, Reverse.
 - 2026-10-25 20:30 — P3 ✓: savollar 146, lint_bank OK, 5 rejim. Keyingi: P4.
 - 2026-10-25 20:25 — P3 MVP: concepts 143, misconceptions 25, bugs 22, M00–M05 savollar 42, rejimlar dojo/parsons/quickfire/duel/tracer. Savollar sonini oshirish davom etadi.
 - 2026-10-25 20:11 — ▶ P3 boshlandi (Grok): concepts/misconceptions/bugs + M00–M05 + 1-batch rejimlar.
