@@ -11,3 +11,5 @@
 - DEC-09 (P0) Uzun jarayonlar (mutation, server) uchun `run_command` 30 s timeout → `~/Claude/.bin/psession.sh`; mavjudligi P2 boshida tekshiriladi.
 - DEC-10 (P0) Ledger SHA-256: sof-JS amaliyoti (R5: `file://` da `crypto.subtle` ga tayanilmaydi).
 - DEC-11 (P0) E'lon qoidasi: har faza/step tugagach `PROGRESS.md` yangilanadi + `~/Claude/.messages/unread` ga `fyi` yoziladi + commit; boshlashda `▶` belgilanadi (parallel agent qayta boshlamasin).
+- DEC-12 (P1) Testlar: `node tests/run.js` (vm kontekst, DOM testlari `T.itDom` o‘tkazib yuboriladi) + `tests/run.html` headless chromium da (`--dump-dom`, sarlavha PASS/FAIL) — ikkalasi ham yurgiziladi; `tests/run.html` `node tools/gen_test_html.js` bilan manifestdan yaratiladi.
+- DEC-13 (P1) `endpoint` ishlatilmaydi: `normalize` faqat shakl farqlarini tenglashtiradi; `filter(user_id=x) ≡ filter(user=x)` kabi semantik ekvivalentlar P3 dagi savol validatorlarida (§8) hal qilinadi, test bilan qayd etilgan.
