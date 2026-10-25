@@ -7,11 +7,10 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/editor.css">
-<style>#app{display:flex;flex:1;min-height:100vh}.core-list{columns:2;list-style:none;padding:0}.core-list li{padding:3px 0}</style>
+<style>#app{display:flex;flex:1;min-height:100vh}.core-list{columns:2;list-style:none;padding:0}.core-list li{padding:3px 0}.mode-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}.mode-grid .card{cursor:pointer;text-align:center}</style>
 </head>
 <body>
 <div id="app"></div>
-<!-- klassik <script> lar (file:// da ishlaydi, build yo'q). Tartib muhim: bog'liqlik pastga qarab. -->
 <script src="js/core/rng.js"></script>
 <script src="js/core/srs.js"></script>
 <script src="js/core/ledger.js"></script>
@@ -24,6 +23,26 @@
 <script src="js/core/hl.js"></script>
 <script src="js/core/ui.js"></script>
 <script src="js/core/editor.js"></script>
+<!-- data -->
+<script src="data/concepts.js"></script>
+<script src="data/misconceptions.js"></script>
+<script src="data/bugs.js"></script>
+<script src="data/scenarios.js"></script>
+<script src="data/seed.js"></script>
+<script src="data/sql.js"></script>
+<script src="data/terminal.js"></script>
+<script src="data/questions_m00.js"></script>
+<script src="data/questions_m01.js"></script>
+<script src="data/questions_m02.js"></script>
+<script src="data/questions_m03.js"></script>
+<script src="data/questions_m04.js"></script>
+<script src="data/questions_m05.js"></script>
+<!-- modes -->
+<script src="js/modes/dojo.js"></script>
+<script src="js/modes/parsons.js"></script>
+<script src="js/modes/quickfire.js"></script>
+<script src="js/modes/duel.js"></script>
+<script src="js/modes/tracer.js"></script>
 <script src="js/boot.js"></script>
 </body>
 </html>
