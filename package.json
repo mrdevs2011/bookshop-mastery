@@ -1,0 +1,8 @@
+{
+  "name": "bookshop-mastery",
+  "private": true,
+  "description": "Static course app only — no Django",
+  "scripts": {
+    "build": "echo static"
+  }
+}

@@ -1,6 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "version": 2,
+  "framework": null,
+  "installCommand": "echo 'no install'",
+  "buildCommand": "echo 'static only'",
+  "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
@@ -8,34 +11,16 @@
     { "source": "/app/", "destination": "/app/index.html" }
   ],
   "redirects": [
-    { "source": "/course", "destination": "/app/", "permanent": false },
-    { "source": "/learn", "destination": "/app/", "permanent": false }
+    { "source": "/login", "destination": "/app/", "permanent": false },
+    { "source": "/login/", "destination": "/app/", "permanent": false },
+    { "source": "/course", "destination": "/app/", "permanent": false }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
-      ]
-    },
-    {
-      "source": "/app/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=60, stale-while-revalidate=300" }
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
       ]
     }
-  ],
-  "routes": [
-    { "src": "/grader/(.*)", "status": 404, "headers": { "Cache-Control": "no-store" } },
-    { "src": "/tools/(.*)", "status": 404 },
-    { "src": "/tests/(.*)", "status": 404 },
-    { "src": "/_backup/(.*)", "status": 404 },
-    { "src": "/PROMPT.md", "status": 404 },
-    { "src": "/GROUND_TRUTH(.*)", "status": 404 },
-    { "src": "/DECISIONS.md", "status": 404 },
-    { "src": "/REPORT.md", "status": 404 },
-    { "src": "/PROGRESS.md", "status": 404 },
-    { "src": "/(.*)", "continue": true }
   ]
 }

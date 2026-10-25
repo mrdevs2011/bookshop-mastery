@@ -1,9 +1,10 @@
-.git/
-gader/
-tools/
-tests/
-_backup/
-__pycache__/
+.git
+grader
+tools
+tests
+_backup
+__pycache__
+*.py
 *.pyc
 PROMPT.md
 GROUND_TRUTH.md
@@ -12,7 +13,6 @@ DECISIONS.md
 REPORT.md
 PROGRESS.md
 *.zip
-node_modules/
-.venv/
+node_modules
+.venv
 start.sh
-app/server.py
