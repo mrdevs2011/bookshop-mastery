@@ -1,4 +1,6 @@
 # BOOKSHOP MASTERY ENGINE — MASTER PROMPT (v2, haqiqiy kod asosida)
+> ⚠️ AVVAL `PROGRESS.md` ni o‘qi: ✓ belgili fazalar TUGAGAN — qaytadan yozma. Har faza/step tugagach PROGRESS.md yangilanadi va `~/Claude/.messages/unread` ga e’lon qilinadi.
+
 
 Sen — dunyodagi eng kuchli o'quv-dastur muhandisi + Django ustozisan. Vazifang: `~/MR/tushuntirish`
 ichida shunday app qurish: foydalanuvchi uni oxirigacha o'tsa, **BookShopBomba** loyihasini

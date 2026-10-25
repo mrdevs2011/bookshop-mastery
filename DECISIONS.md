@@ -10,3 +10,4 @@
 - DEC-08 (P0) BookShopBomba nazorati: `GROUND_TRUTH.sha256` (manbalar xeshi); `db.sqlite3` DoD tekshiruvidan istisno — uni boshqa jarayon yozib turadi (N07).
 - DEC-09 (P0) Uzun jarayonlar (mutation, server) uchun `run_command` 30 s timeout → `~/Claude/.bin/psession.sh`; mavjudligi P2 boshida tekshiriladi.
 - DEC-10 (P0) Ledger SHA-256: sof-JS amaliyoti (R5: `file://` da `crypto.subtle` ga tayanilmaydi).
+- DEC-11 (P0) E'lon qoidasi: har faza/step tugagach `PROGRESS.md` yangilanadi + `~/Claude/.messages/unread` ga `fyi` yoziladi + commit; boshlashda `▶` belgilanadi (parallel agent qayta boshlamasin).
