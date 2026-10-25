@@ -27,3 +27,4 @@ Belgilar: ✓ tugagan (qaytadan YOZMA, ustidan yozma) • ▶ jarayonda (kim/qac
 ## Jurnal (eng yangisi tepada)
 - 2026-10-25 19:10 — P1 ✓ tugadi (8 ta yetishmayotgan test fayl yozildi: mastery, selector, router, normalize, diff, hl, editor, ui; barchasi yashil). Keyingi: P2.
 - 2026-10-25 18:42 — P0 ✓ tugadi va e'lon qilindi (`.messages/unread`).
+- 2026-10-25 19:52 — ▶ P2 ichida `tools/gen_sql.py` + `tools/_sql_driver.py` + `app/data/sql.js` ni 2-sessiya olyapti (capture_cmds.py — 1-sessiyada, tegilmaydi).
