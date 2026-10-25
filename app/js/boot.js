@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var BS = window.BS, h = BS.ui.h;
-  BS.version = 'P5';
+  BS.version = 'P7';
   var CORE = ['rng', 'srs', 'ledger', 'state', 'mastery', 'selector', 'router', 'normalize', 'diff', 'hl', 'ui', 'editor'];
   var MODES = [
     { path: '/dojo', id: 'dojo', title: 'Syntax Dojo' },
@@ -22,7 +22,8 @@
     { path: '/teachback', id: 'teachback', title: 'Teach-back' },
     { path: '/gauntlet', id: 'gauntlet', title: 'Refactor Gauntlet' },
     { path: '/daily', id: 'daily', title: 'Daily Mission' },
-    { path: '/chaos', id: 'chaos', title: 'Chaos Mode' }
+    { path: '/chaos', id: 'chaos', title: 'Chaos Mode' },
+    { path: '/exam', id: 'exam', title: 'Imtihon 9.0' }
   ];
 
   function shell(active, content) {
