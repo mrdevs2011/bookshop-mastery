@@ -12,7 +12,7 @@ Belgilar: ✓ tugagan (qaytadan YOZMA, ustidan yozma) • ▶ jarayonda (kim/qac
 ## Fazalar
 | Faza | Holat | Commit | Natija / izoh |
 |---|---|---|---|
-| P0 Zaxira, git, GROUND_TRUTH, DECISIONS | ✓ 2026-2026-10-25 18:42 | 804bf5d, ac5ada2 | zip zaxira (63 fayl), git init, GROUND_TRUTH.md + .sha256, DEC-01…DEC-11; BookShopBomba o'zgarmagan (sha: 0 nomuvofiqlik) |
+| P0 Zaxira, git, GROUND_TRUTH, DECISIONS | ✓ 2026-10-25 18:42 | 804bf5d, ac5ada2 | zip zaxira (63 fayl), git init, GROUND_TRUTH.md + .sha256, DEC-01…DEC-11; BookShopBomba o'zgarmagan (sha: 0 nomuvofiqlik) |
 | P1 Poydevor (core/* modullar, birlik testlar) | ☐ | — | |
 | P2 Haqiqat vositalari (server.py, grader, mutantlar, gen_*) | ☐ | — | |
 | P3 Kontent A (M00–M05 + 1-batch rejimlar) | ☐ | — | |
