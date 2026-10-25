@@ -2,14 +2,21 @@
 (function () {
   'use strict';
   var BS = window.BS, h = BS.ui.h;
-  BS.version = 'P3';
+  BS.version = 'P4';
   var CORE = ['rng', 'srs', 'ledger', 'state', 'mastery', 'selector', 'router', 'normalize', 'diff', 'hl', 'ui', 'editor'];
   var MODES = [
     { path: '/dojo', id: 'dojo', title: 'Syntax Dojo' },
     { path: '/parsons', id: 'parsons', title: 'Parsons+' },
     { path: '/quickfire', id: 'quickfire', title: 'Quick-Fire' },
     { path: '/duel', id: 'duel', title: 'Diff Duel' },
-    { path: '/tracer', id: 'tracer', title: 'Request Flight' }
+    { path: '/tracer', id: 'tracer', title: 'Request Flight' },
+    { path: '/bughunt', id: 'bughunt', title: 'Bug Hunt' },
+    { path: '/matrix', id: 'matrix', title: 'Permission Matrix' },
+    { path: '/orm', id: 'orm', title: 'ORM Arena' },
+    { path: '/migrations', id: 'migrations', title: 'Migration TM' },
+    { path: '/templates', id: 'templates', title: 'Template Forge' },
+    { path: '/terminal', id: 'terminal', title: 'Terminal' },
+    { path: '/reverse', id: 'reverse', title: 'Reverse Engineer' }
   ];
 
   function shell(active, content) {
@@ -37,7 +44,7 @@
     var nC = (BS.data && BS.data.concepts) ? BS.data.concepts.length : 0;
     var nB = (BS.data && BS.data.bugs) ? BS.data.bugs.length : 0;
     var nQ = 0;
-    ['questions_m00','questions_m01','questions_m02','questions_m03','questions_m04','questions_m05'].forEach(function (k) {
+    ['questions_m00','questions_m01','questions_m02','questions_m03','questions_m04','questions_m05','questions_m06','questions_m07','questions_m08','questions_m09','questions_m10','questions_m11','questions_m12'].forEach(function (k) {
       if (BS.data && Array.isArray(BS.data[k])) nQ += BS.data[k].length;
     });
     render('/', [
