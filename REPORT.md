@@ -25,7 +25,7 @@ Sana: 2026-10-25 · Repo: `~/MR/tushuntirish` · Oxirgi commit: `bab8a6d` (P9)
 | Konseptlar | 143 |
 | Misconception | 25 |
 | Bug (B01–B22) | 22 |
-| Mashq savollari (M00–M16) | 284 |
+| Mashq savollari (M00–M16) | 1224 |
 | Imtihon banki (muhrlangan) | 804 |
 | Mock imtihon | 5 (har biri 83 element) |
 | O\'yin rejimlari | 18 |
@@ -36,7 +36,7 @@ Sana: 2026-10-25 · Repo: `~/MR/tushuntirish` · Oxirgi commit: `bab8a6d` (P9)
 
 ### `python3 tools/lint_bank.py`
 ```
-questions=284 concepts=143 bugs=22 misconceptions=25
+questions=1224 concepts=143 bugs=22 misconceptions=25
 OK 0 errors
 ```
 
@@ -87,7 +87,7 @@ Offline: `app/index.html` ni to\'g\'ridan ochish mumkin (grader API siz).
 1. Ledger/client-side himoya — o\'zgartirishni sezadi, to\'liq to\'xtatmaydi.
 2. Imtihon banki brauzerda yuklanadi — server-side muhr emas.
 3. Writing to\'liq bahosi uchun `./start.sh` + Django muhiti kerak.
-4. Mashq savollari 284 (PROMPT ≥1200 variant maqsadiga yetmagan) — keyingi kengaytirish ochiq.
+4. Mashq savollari 1224 (PROMPT ≥1200 variant maqsadiga yetmagan) — keyingi kengaytirish ochiq.
 5. `data-src` sinxron hozir 3 aniq blok (urls/models/views); butun 28 sahifa avto-solishtiruv kengaytirilishi mumkin.
 6. BookShopBomba working tree toza emas (yuqorida).
 

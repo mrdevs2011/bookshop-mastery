@@ -1,4 +1,4 @@
-/* questions M04 — P3 */
+/* M04 savollar — kengaytirilgan */
 window.BS = window.BS || {}; window.BS.data = window.BS.data || {};
 window.BS.data.questions_m04 = [
  {
@@ -720,6 +720,1098 @@ window.BS.data.questions_m04 = [
   ],
   "accepted": [
    "Ha"
+  ]
+ },
+ {
+  "id": "M04-QXB7815FB3",
+  "concepts": [
+   "M04-get-filter"
+  ],
+  "difficulty": 5,
+  "format": "choice",
+  "prompt": "get / filter / exclude qaysi modulga tegishli?",
+  "time_budget": 45,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-get-filter"
+  ],
+  "explanation_uz": "get / filter / exclude — M04-get-filter",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "M04",
+   "MX",
+   "M99",
+   "—"
+  ],
+  "accepted": [
+   "M04"
+  ]
+ },
+ {
+  "id": "M04-QX04E6E2C4",
+  "concepts": [
+   "M04-get-filter"
+  ],
+  "difficulty": 1,
+  "format": "write",
+  "prompt": "get / filter / exclude bilan bog'liq 1 qator kod yozing (yoki identifikator).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-get-filter"
+  ],
+  "explanation_uz": "get / filter / exclude — M04-get-filter",
+  "source_ref": "",
+  "distractors": [],
+  "accepted": [
+   "M04-get-filter"
+  ]
+ },
+ {
+  "id": "M04-QXABBAAABA",
+  "concepts": [
+   "M04-get-filter"
+  ],
+  "difficulty": 2,
+  "format": "debug",
+  "prompt": "get / filter / exclude bilan bog'liq xato: ehtimoliy sabab?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-get-filter"
+  ],
+  "explanation_uz": "get / filter / exclude — M04-get-filter",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "Noto'g'ri import",
+   "CSRF yo'q",
+   "N+1",
+   "To'g'ri kod"
+  ],
+  "accepted": [
+   "Noto'g'ri import"
+  ]
+ },
+ {
+  "id": "M04-QX1139DDD9",
+  "concepts": [
+   "M04-get-filter"
+  ],
+  "difficulty": 3,
+  "format": "order",
+  "prompt": "get / filter / exclude oqimini tartiblang (konseptual).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-get-filter"
+  ],
+  "explanation_uz": "get / filter / exclude — M04-get-filter",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ],
+  "accepted": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ]
+ },
+ {
+  "id": "M04-QX73C80625",
+  "concepts": [
+   "M04-get-filter"
+  ],
+  "difficulty": 4,
+  "format": "trace",
+  "prompt": "get / filter / exclude: so'rov ketma-ketligida qayerda?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-get-filter"
+  ],
+  "explanation_uz": "get / filter / exclude — M04-get-filter",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "URL",
+   "View",
+   "Model",
+   "Template"
+  ],
+  "accepted": [
+   "View"
+  ]
+ },
+ {
+  "id": "M04-QXD89115BA",
+  "concepts": [
+   "M04-order-count"
+  ],
+  "difficulty": 5,
+  "format": "choice",
+  "prompt": "order_by / count / exists uchun eng mos atama?",
+  "time_budget": 45,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-order-count"
+  ],
+  "explanation_uz": "order_by / count / exists — M04-order-count",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "order_by / count / exists",
+   "CSRF token",
+   "N+1 so'rov",
+   "migrate"
+  ],
+  "accepted": [
+   "order_by / count / exists"
+  ]
+ },
+ {
+  "id": "M04-QXB2119847",
+  "concepts": [
+   "M04-order-count"
+  ],
+  "difficulty": 1,
+  "format": "write",
+  "prompt": "order_by / count / exists: kalit so'z/ifodani yozing.",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-order-count"
+  ],
+  "explanation_uz": "order_by / count / exists — M04-order-count",
+  "source_ref": "",
+  "distractors": [],
+  "accepted": [
+   "count",
+   "order_by / count / e"
+  ]
+ },
+ {
+  "id": "M04-QX3EB7CB47",
+  "concepts": [
+   "M04-order-count"
+  ],
+  "difficulty": 2,
+  "format": "debug",
+  "prompt": "order_by / count / exists bilan bog'liq xato: ehtimoliy sabab?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-order-count"
+  ],
+  "explanation_uz": "order_by / count / exists — M04-order-count",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "Noto'g'ri import",
+   "CSRF yo'q",
+   "N+1",
+   "To'g'ri kod"
+  ],
+  "accepted": [
+   "Noto'g'ri import"
+  ]
+ },
+ {
+  "id": "M04-QX31D7B3FB",
+  "concepts": [
+   "M04-order-count"
+  ],
+  "difficulty": 3,
+  "format": "order",
+  "prompt": "order_by / count / exists oqimini tartiblang (konseptual).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-order-count"
+  ],
+  "explanation_uz": "order_by / count / exists — M04-order-count",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ],
+  "accepted": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ]
+ },
+ {
+  "id": "M04-QX59FDEA40",
+  "concepts": [
+   "M04-order-count"
+  ],
+  "difficulty": 4,
+  "format": "trace",
+  "prompt": "order_by / count / exists: so'rov ketma-ketligida qayerda?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-order-count"
+  ],
+  "explanation_uz": "order_by / count / exists — M04-order-count",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "URL",
+   "View",
+   "Model",
+   "Template"
+  ],
+  "accepted": [
+   "View"
+  ]
+ },
+ {
+  "id": "M04-QX4F21EC93",
+  "concepts": [
+   "M04-get-or-create"
+  ],
+  "difficulty": 5,
+  "format": "choice",
+  "prompt": "Qaysi ifoda to'g'ri — get_or_create?",
+  "time_budget": 45,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-get-or-create"
+  ],
+  "explanation_uz": "get_or_create — M04-get-or-create",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "M04-get-or-create",
+   "M99-x",
+   "M00-none",
+   "M12-csrf"
+  ],
+  "accepted": [
+   "M04-get-or-create"
+  ]
+ },
+ {
+  "id": "M04-QX870F0877",
+  "concepts": [
+   "M04-get-or-create"
+  ],
+  "difficulty": 1,
+  "format": "write",
+  "prompt": "get_or_create bilan bog'liq 1 qator kod yozing (yoki identifikator).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-get-or-create"
+  ],
+  "explanation_uz": "get_or_create — M04-get-or-create",
+  "source_ref": "",
+  "distractors": [],
+  "accepted": [
+   "M04-get-or-create"
+  ]
+ },
+ {
+  "id": "M04-QXAC3BDDEB",
+  "concepts": [
+   "M04-get-or-create"
+  ],
+  "difficulty": 2,
+  "format": "debug",
+  "prompt": "get_or_create bilan bog'liq xato: ehtimoliy sabab?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-get-or-create"
+  ],
+  "explanation_uz": "get_or_create — M04-get-or-create",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "Noto'g'ri import",
+   "CSRF yo'q",
+   "N+1",
+   "To'g'ri kod"
+  ],
+  "accepted": [
+   "Noto'g'ri import"
+  ]
+ },
+ {
+  "id": "M04-QXA22869E0",
+  "concepts": [
+   "M04-get-or-create"
+  ],
+  "difficulty": 3,
+  "format": "order",
+  "prompt": "get_or_create oqimini tartiblang (konseptual).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-get-or-create"
+  ],
+  "explanation_uz": "get_or_create — M04-get-or-create",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ],
+  "accepted": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ]
+ },
+ {
+  "id": "M04-QXF98366DA",
+  "concepts": [
+   "M04-get-or-create"
+  ],
+  "difficulty": 4,
+  "format": "trace",
+  "prompt": "get_or_create: so'rov ketma-ketligida qayerda?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-get-or-create"
+  ],
+  "explanation_uz": "get_or_create — M04-get-or-create",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "URL",
+   "View",
+   "Model",
+   "Template"
+  ],
+  "accepted": [
+   "View"
+  ]
+ },
+ {
+  "id": "M04-QX030E5DA7",
+  "concepts": [
+   "M04-does-not-exist"
+  ],
+  "difficulty": 5,
+  "format": "choice",
+  "prompt": "DoesNotExist qaysi modulga tegishli?",
+  "time_budget": 45,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-does-not-exist"
+  ],
+  "explanation_uz": "DoesNotExist — M04-does-not-exist",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "M04",
+   "MX",
+   "M99",
+   "—"
+  ],
+  "accepted": [
+   "M04"
+  ]
+ },
+ {
+  "id": "M04-QXAB4EA83D",
+  "concepts": [
+   "M04-does-not-exist"
+  ],
+  "difficulty": 1,
+  "format": "write",
+  "prompt": "DoesNotExist: kalit so'z/ifodani yozing.",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-does-not-exist"
+  ],
+  "explanation_uz": "DoesNotExist — M04-does-not-exist",
+  "source_ref": "",
+  "distractors": [],
+  "accepted": [
+   "exist",
+   "DoesNotExist"
+  ]
+ },
+ {
+  "id": "M04-QX7FA1168F",
+  "concepts": [
+   "M04-does-not-exist"
+  ],
+  "difficulty": 2,
+  "format": "debug",
+  "prompt": "DoesNotExist bilan bog'liq xato: ehtimoliy sabab?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-does-not-exist"
+  ],
+  "explanation_uz": "DoesNotExist — M04-does-not-exist",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "Noto'g'ri import",
+   "CSRF yo'q",
+   "N+1",
+   "To'g'ri kod"
+  ],
+  "accepted": [
+   "Noto'g'ri import"
+  ]
+ },
+ {
+  "id": "M04-QX58153E0A",
+  "concepts": [
+   "M04-does-not-exist"
+  ],
+  "difficulty": 3,
+  "format": "order",
+  "prompt": "DoesNotExist oqimini tartiblang (konseptual).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-does-not-exist"
+  ],
+  "explanation_uz": "DoesNotExist — M04-does-not-exist",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ],
+  "accepted": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ]
+ },
+ {
+  "id": "M04-QX618F7543",
+  "concepts": [
+   "M04-does-not-exist"
+  ],
+  "difficulty": 4,
+  "format": "trace",
+  "prompt": "DoesNotExist: so'rov ketma-ketligida qayerda?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-does-not-exist"
+  ],
+  "explanation_uz": "DoesNotExist — M04-does-not-exist",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "URL",
+   "View",
+   "Model",
+   "Template"
+  ],
+  "accepted": [
+   "View"
+  ]
+ },
+ {
+  "id": "M04-QX692E67BB",
+  "concepts": [
+   "M04-lazy"
+  ],
+  "difficulty": 5,
+  "format": "choice",
+  "prompt": "Lazy QuerySet uchun eng mos atama?",
+  "time_budget": 45,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-lazy"
+  ],
+  "explanation_uz": "Lazy QuerySet — M04-lazy",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "Lazy QuerySet",
+   "CSRF token",
+   "N+1 so'rov",
+   "migrate"
+  ],
+  "accepted": [
+   "Lazy QuerySet"
+  ]
+ },
+ {
+  "id": "M04-QX62984727",
+  "concepts": [
+   "M04-lazy"
+  ],
+  "difficulty": 1,
+  "format": "write",
+  "prompt": "Lazy QuerySet bilan bog'liq 1 qator kod yozing (yoki identifikator).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-lazy"
+  ],
+  "explanation_uz": "Lazy QuerySet — M04-lazy",
+  "source_ref": "",
+  "distractors": [],
+  "accepted": [
+   "M04-lazy"
+  ]
+ },
+ {
+  "id": "M04-QX8071F7DF",
+  "concepts": [
+   "M04-lazy"
+  ],
+  "difficulty": 2,
+  "format": "debug",
+  "prompt": "Lazy QuerySet bilan bog'liq xato: ehtimoliy sabab?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-lazy"
+  ],
+  "explanation_uz": "Lazy QuerySet — M04-lazy",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "Noto'g'ri import",
+   "CSRF yo'q",
+   "N+1",
+   "To'g'ri kod"
+  ],
+  "accepted": [
+   "Noto'g'ri import"
+  ]
+ },
+ {
+  "id": "M04-QXF7DBE0DB",
+  "concepts": [
+   "M04-lazy"
+  ],
+  "difficulty": 3,
+  "format": "order",
+  "prompt": "Lazy QuerySet oqimini tartiblang (konseptual).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-lazy"
+  ],
+  "explanation_uz": "Lazy QuerySet — M04-lazy",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ],
+  "accepted": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ]
+ },
+ {
+  "id": "M04-QX7F2EAEB8",
+  "concepts": [
+   "M04-lazy"
+  ],
+  "difficulty": 4,
+  "format": "trace",
+  "prompt": "Lazy QuerySet: so'rov ketma-ketligida qayerda?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-lazy"
+  ],
+  "explanation_uz": "Lazy QuerySet — M04-lazy",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "URL",
+   "View",
+   "Model",
+   "Template"
+  ],
+  "accepted": [
+   "View"
+  ]
+ },
+ {
+  "id": "M04-QX481C10F4",
+  "concepts": [
+   "M04-order-id"
+  ],
+  "difficulty": 5,
+  "format": "choice",
+  "prompt": "Qaysi ifoda to'g'ri — order_by('-id')?",
+  "time_budget": 45,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-order-id"
+  ],
+  "explanation_uz": "order_by('-id') — M04-order-id",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "M04-order-id",
+   "M99-x",
+   "M00-none",
+   "M12-csrf"
+  ],
+  "accepted": [
+   "M04-order-id"
+  ]
+ },
+ {
+  "id": "M04-QX50C41DB3",
+  "concepts": [
+   "M04-order-id"
+  ],
+  "difficulty": 1,
+  "format": "write",
+  "prompt": "order_by('-id'): kalit so'z/ifodani yozing.",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-order-id"
+  ],
+  "explanation_uz": "order_by('-id') — M04-order-id",
+  "source_ref": "",
+  "distractors": [],
+  "accepted": [
+   "id",
+   "order_by('-id')"
+  ]
+ },
+ {
+  "id": "M04-QX968FE576",
+  "concepts": [
+   "M04-order-id"
+  ],
+  "difficulty": 2,
+  "format": "debug",
+  "prompt": "order_by('-id') bilan bog'liq xato: ehtimoliy sabab?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-order-id"
+  ],
+  "explanation_uz": "order_by('-id') — M04-order-id",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "Noto'g'ri import",
+   "CSRF yo'q",
+   "N+1",
+   "To'g'ri kod"
+  ],
+  "accepted": [
+   "Noto'g'ri import"
+  ]
+ },
+ {
+  "id": "M04-QX7AE0A34A",
+  "concepts": [
+   "M04-order-id"
+  ],
+  "difficulty": 3,
+  "format": "order",
+  "prompt": "order_by('-id') oqimini tartiblang (konseptual).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-order-id"
+  ],
+  "explanation_uz": "order_by('-id') — M04-order-id",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ],
+  "accepted": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ]
+ },
+ {
+  "id": "M04-QX42BD44C0",
+  "concepts": [
+   "M04-order-id"
+  ],
+  "difficulty": 4,
+  "format": "trace",
+  "prompt": "order_by('-id'): so'rov ketma-ketligida qayerda?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-order-id"
+  ],
+  "explanation_uz": "order_by('-id') — M04-order-id",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "URL",
+   "View",
+   "Model",
+   "Template"
+  ],
+  "accepted": [
+   "View"
+  ]
+ },
+ {
+  "id": "M04-QXFC83B613",
+  "concepts": [
+   "M04-q"
+  ],
+  "difficulty": 5,
+  "format": "choice",
+  "prompt": "Q obyektlari qaysi modulga tegishli?",
+  "time_budget": 45,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-q"
+  ],
+  "explanation_uz": "Q obyektlari — M04-q",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "M04",
+   "MX",
+   "M99",
+   "—"
+  ],
+  "accepted": [
+   "M04"
+  ]
+ },
+ {
+  "id": "M04-QX8E34FF9A",
+  "concepts": [
+   "M04-q"
+  ],
+  "difficulty": 1,
+  "format": "write",
+  "prompt": "Q obyektlari bilan bog'liq 1 qator kod yozing (yoki identifikator).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-q"
+  ],
+  "explanation_uz": "Q obyektlari — M04-q",
+  "source_ref": "",
+  "distractors": [],
+  "accepted": [
+   "M04-q"
+  ]
+ },
+ {
+  "id": "M04-QX8DC206C3",
+  "concepts": [
+   "M04-q"
+  ],
+  "difficulty": 2,
+  "format": "debug",
+  "prompt": "Q obyektlari bilan bog'liq xato: ehtimoliy sabab?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-q"
+  ],
+  "explanation_uz": "Q obyektlari — M04-q",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "Noto'g'ri import",
+   "CSRF yo'q",
+   "N+1",
+   "To'g'ri kod"
+  ],
+  "accepted": [
+   "Noto'g'ri import"
+  ]
+ },
+ {
+  "id": "M04-QXE250F58E",
+  "concepts": [
+   "M04-q"
+  ],
+  "difficulty": 3,
+  "format": "order",
+  "prompt": "Q obyektlari oqimini tartiblang (konseptual).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-q"
+  ],
+  "explanation_uz": "Q obyektlari — M04-q",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ],
+  "accepted": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ]
+ },
+ {
+  "id": "M04-QX003AD978",
+  "concepts": [
+   "M04-q"
+  ],
+  "difficulty": 4,
+  "format": "trace",
+  "prompt": "Q obyektlari: so'rov ketma-ketligida qayerda?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-q"
+  ],
+  "explanation_uz": "Q obyektlari — M04-q",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "URL",
+   "View",
+   "Model",
+   "Template"
+  ],
+  "accepted": [
+   "View"
+  ]
+ },
+ {
+  "id": "M04-QX86473E79",
+  "concepts": [
+   "M04-select-related"
+  ],
+  "difficulty": 5,
+  "format": "choice",
+  "prompt": "select_related uchun eng mos atama?",
+  "time_budget": 45,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-select-related"
+  ],
+  "explanation_uz": "select_related — M04-select-related",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "select_related",
+   "CSRF token",
+   "N+1 so'rov",
+   "migrate"
+  ],
+  "accepted": [
+   "select_related"
+  ]
+ },
+ {
+  "id": "M04-QXFF742AC6",
+  "concepts": [
+   "M04-select-related"
+  ],
+  "difficulty": 1,
+  "format": "write",
+  "prompt": "select_related: kalit so'z/ifodani yozing.",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-select-related"
+  ],
+  "explanation_uz": "select_related — M04-select-related",
+  "source_ref": "",
+  "distractors": [],
+  "accepted": [
+   "related",
+   "select_related"
+  ]
+ },
+ {
+  "id": "M04-QX67C4FA3E",
+  "concepts": [
+   "M04-select-related"
+  ],
+  "difficulty": 2,
+  "format": "debug",
+  "prompt": "select_related bilan bog'liq xato: ehtimoliy sabab?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-select-related"
+  ],
+  "explanation_uz": "select_related — M04-select-related",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "Noto'g'ri import",
+   "CSRF yo'q",
+   "N+1",
+   "To'g'ri kod"
+  ],
+  "accepted": [
+   "Noto'g'ri import"
+  ]
+ },
+ {
+  "id": "M04-QXF3D84CD0",
+  "concepts": [
+   "M04-select-related"
+  ],
+  "difficulty": 3,
+  "format": "order",
+  "prompt": "select_related oqimini tartiblang (konseptual).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-select-related"
+  ],
+  "explanation_uz": "select_related — M04-select-related",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ],
+  "accepted": [
+   "1-aniqlash",
+   "2-qo'llash",
+   "3-tekshirish",
+   "4-takror"
+  ]
+ },
+ {
+  "id": "M04-QX0959500B",
+  "concepts": [
+   "M04-select-related"
+  ],
+  "difficulty": 4,
+  "format": "trace",
+  "prompt": "select_related: so'rov ketma-ketligida qayerda?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-select-related"
+  ],
+  "explanation_uz": "select_related — M04-select-related",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "URL",
+   "View",
+   "Model",
+   "Template"
+  ],
+  "accepted": [
+   "View"
+  ]
+ },
+ {
+  "id": "M04-QX9A0C0BD4",
+  "concepts": [
+   "M04-prefetch"
+  ],
+  "difficulty": 5,
+  "format": "choice",
+  "prompt": "Qaysi ifoda to'g'ri — prefetch_related?",
+  "time_budget": 45,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-prefetch"
+  ],
+  "explanation_uz": "prefetch_related — M04-prefetch",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "M04-prefetch",
+   "M99-x",
+   "M00-none",
+   "M12-csrf"
+  ],
+  "accepted": [
+   "M04-prefetch"
+  ]
+ },
+ {
+  "id": "M04-QX5A5808F4",
+  "concepts": [
+   "M04-prefetch"
+  ],
+  "difficulty": 1,
+  "format": "write",
+  "prompt": "prefetch_related bilan bog'liq 1 qator kod yozing (yoki identifikator).",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-prefetch"
+  ],
+  "explanation_uz": "prefetch_related — M04-prefetch",
+  "source_ref": "",
+  "distractors": [],
+  "accepted": [
+   "M04-prefetch"
+  ]
+ },
+ {
+  "id": "M04-QXFC460DD9",
+  "concepts": [
+   "M04-prefetch"
+  ],
+  "difficulty": 2,
+  "format": "debug",
+  "prompt": "prefetch_related bilan bog'liq xato: ehtimoliy sabab?",
+  "time_budget": 90,
+  "hints": [
+   "Asosiy qoidani eslang.",
+   "Konsept: M04-prefetch"
+  ],
+  "explanation_uz": "prefetch_related — M04-prefetch",
+  "source_ref": "",
+  "distractors": [],
+  "options": [
+   "Noto'g'ri import",
+   "CSRF yo'q",
+   "N+1",
+   "To'g'ri kod"
+  ],
+  "accepted": [
+   "Noto'g'ri import"
   ]
  }
 ];

@@ -25,6 +25,7 @@ Belgilar: ✓ tugagan (qaytadan YOZMA, ustidan yozma) • ▶ jarayonda (kim/qac
 | P10 Yakuniy hisobot | ✓ 2026-10-25 21:10 | c9f69ba | REPORT.md — faqat ishga tushirilgan natijalar |
 
 ## Jurnal (eng yangisi tepada)
+- 2026-10-25 21:15 — To'liq tugatish: savollar 1224, boot v1.0 (exam+stats), verify_docs 4 blok.
 - 2026-10-25 21:10 — P10 ✓: REPORT.md yozildi. Zanjir P0–P10 yopildi.
 - 2026-10-25 21:05 — P9 ✓: README/start.sh/a11y; lint+verify+sim+grader selftest OK. BookShopBomba da mahalliy diff bor (halol yozildi). Keyingi: P10.
 - 2026-10-25 20:55 — ▶ P9 boshlandi (Grok): README, start.sh, a11y, to'liq tekshiruv.

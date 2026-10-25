@@ -76,8 +76,11 @@
 
 <div class="nav-btns"><a class="sec" href="../04-urls/index.html">← 4. URLs</a><a href="../06-templates/index.html">6. Templates →</a></div>
 
-<section class="code-sync"><h3>Haqiqiy kod (core/views.py:1-40)</h3>
-<pre data-src="core/views.py:1-40">
+
+<p class="play-link"><a href="../app/index.html#/dojo">Shu konseptni o'yna →</a></p>
+
+<section class="code-sync"><h3>Haqiqiy kod (core/views.py:1-80)</h3>
+<pre data-src="core/views.py:1-80">
 from django.contrib.auth.models import User
 from django.contrib.auth import login as django_login, logout as django_logout
 from django.http import HttpResponse, HttpRequest
@@ -118,8 +121,47 @@ def add_book(request: HttpRequest):
     if request.method == "GET":
         return render(request, "add_book.html")
 
+    elif request.method == "POST":
+        name1 = request.POST.get("name")
+        url: str = request.POST.get("url")
+        public = request.POST.get("public")
+
+        if url.startswith("https://"):
+            url = url[8:]
+        elif url.startswith("http://"):
+            url = url[7:]
+        if public  == "on":
+            public = True
+        else:
+            public = False
+
+        try:
+            b1 = Book(name=name1, user_id=request.user.id, url=url,public=public)
+            b1.save()
+        except Exception as err:
+            print(err)
+            return redirect("/error/")
+
+        return redirect("/book-list/")
+
+    return HttpResponse("hozircha ishlamayapti")
+
+def book_page(request, id):
+    if not request.user.is_authenticated:
+        return redirect("/login/")
+
+    try:
+        book = Book.objects.get(id=id)
+
+        # 1. Agar kitob ommaviy (public) bo'lsa
+        if book.public:
+            BookView.objects.get_or_create(book=book, user=request.user)
+            soni = BookView.objects.filter(book=book).count()
+            return render(request, "book.html", {"book": book, "soni": soni})
+
+        # 2. Agar kitob private (shaxsiy) bo'lsa va uni boshqa odam ochmoqchi bo'lsa
+        if book.user.id != request.user.id:
 </pre></section>
-<p class="play-link"><a href="../app/index.html#/dojo">Shu konseptni o'yna →</a></p>
 </main>
 </body>
 </html>
