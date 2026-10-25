@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var BS = window.BS, h = BS.ui.h;
-  BS.version = 'P4';
+  BS.version = 'P5';
   var CORE = ['rng', 'srs', 'ledger', 'state', 'mastery', 'selector', 'router', 'normalize', 'diff', 'hl', 'ui', 'editor'];
   var MODES = [
     { path: '/dojo', id: 'dojo', title: 'Syntax Dojo' },
@@ -16,7 +16,13 @@
     { path: '/migrations', id: 'migrations', title: 'Migration TM' },
     { path: '/templates', id: 'templates', title: 'Template Forge' },
     { path: '/terminal', id: 'terminal', title: 'Terminal' },
-    { path: '/reverse', id: 'reverse', title: 'Reverse Engineer' }
+    { path: '/reverse', id: 'reverse', title: 'Reverse Engineer' },
+    { path: '/sprint', id: 'sprint', title: 'Sprint' },
+    { path: '/boss', id: 'boss', title: 'Boss Fight' },
+    { path: '/teachback', id: 'teachback', title: 'Teach-back' },
+    { path: '/gauntlet', id: 'gauntlet', title: 'Refactor Gauntlet' },
+    { path: '/daily', id: 'daily', title: 'Daily Mission' },
+    { path: '/chaos', id: 'chaos', title: 'Chaos Mode' }
   ];
 
   function shell(active, content) {
@@ -44,7 +50,7 @@
     var nC = (BS.data && BS.data.concepts) ? BS.data.concepts.length : 0;
     var nB = (BS.data && BS.data.bugs) ? BS.data.bugs.length : 0;
     var nQ = 0;
-    ['questions_m00','questions_m01','questions_m02','questions_m03','questions_m04','questions_m05','questions_m06','questions_m07','questions_m08','questions_m09','questions_m10','questions_m11','questions_m12'].forEach(function (k) {
+    ['questions_m00','questions_m01','questions_m02','questions_m03','questions_m04','questions_m05','questions_m06','questions_m07','questions_m08','questions_m09','questions_m10','questions_m11','questions_m12','questions_m13','questions_m14','questions_m15','questions_m16'].forEach(function (k) {
       if (BS.data && Array.isArray(BS.data[k])) nQ += BS.data[k].length;
     });
     render('/', [

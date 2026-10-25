@@ -18,7 +18,7 @@ if len(bugs) < 22:
     errs.append(f'bugs {len(bugs)} < 22')
 
 qs = []
-for mod in ['m00','m01','m02','m03','m04','m05','m06','m07','m08','m09','m10','m11','m12']:
+for mod in ['m00','m01','m02','m03','m04','m05','m06','m07','m08','m09','m10','m11','m12','m13','m14','m15','m16']:
     f = DATA / f'questions_{mod}.js'
     if f.exists():
         qs.extend(load(f'questions_{mod}.js', f'questions_{mod}'))
