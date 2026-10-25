@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Models — BookShop Tushuntirish</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand">
+    <h1>Book<span>Shop</span></h1>
+    <p>100% tushuntirish · yoddan yozish</p>
+  </div>
+  <a class="" href="../index.html">Bosh sahifa</a>
+<div class="sec">ASOSLAR</div>
+<a class="" href="../01-kirish/index.html">1. Kirish</a>
+<a class="" href="../02-struktura/index.html">2. Loyiha tuzilmasi</a>
+<div class="sec">KOD QATLAMLARI</div>
+<a class="active" href="../03-models/index.html">3. Models</a>
+<a class="" href="../04-urls/index.html">4. URLs</a>
+<a class="" href="../05-views/index.html">5. Views</a>
+<a class="" href="../06-templates/index.html">6. Templates</a>
+<div class="sec">FUNKSIYALAR</div>
+<a class="" href="../07-auth/index.html">7. Auth (login/signup)</a>
+<a class="" href="../08-kitoblar/index.html">8. Kitoblar</a>
+<div class="sec">MASHQ</div>
+<a class="" href="../09-amaliyot/index.html">9. Amaliyot</a>
+<a class="" href="../10-xotira/index.html">10. Xotiraga yozish</a>
+
+</aside>
+<main class="main">
+
+<h1 class="page">3. Models — baza jadvallari</h1>
+<p class="lead">Model = jadval. Har bir class = bitta jadval.</p>
+
+<div class="idea">Python class yozasiz → Django undan SQL jadval yasaydi.</div>
+
+<h2>Book — kitob</h2>
+<pre><span class="k">class</span> <span class="f">Book</span>(models.Model):
+    name = models.CharField(max_length=255)       <span class="c"># matn, max 255</span>
+    yaratilgan_sanasi = models.DateField(auto_now_add=<span class="k">True</span>)  <span class="c"># avto sana</span>
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  <span class="c"># egasi</span>
+    url = models.CharField(null=<span class="k">True</span>)             <span class="c"># havola</span>
+    public = models.BooleanField(default=<span class="k">False</span>)  <span class="c"># ommaviymi?</span></pre>
+
+<table>
+  <tr><th>Maydon</th><th>Ma’nosi</th><th>Misollar</th></tr>
+  <tr><td>name</td><td>Kitob nomi</td><td>"O‘tkan kunlar"</td></tr>
+  <tr><td>user</td><td>Kim qo‘shgan</td><td>ForeignKey → User</td></tr>
+  <tr><td>url</td><td>Kitob manzili</td><td>ziyouz.uz/...</td></tr>
+  <tr><td>public</td><td>Hammaga ochiqmi</td><td>True / False</td></tr>
+  <tr><td>yaratilgan_sanasi</td><td>Qachon qo‘shilgan</td><td>avtomatik</td></tr>
+</table>
+
+<h2>BookView — kim ko‘rdi</h2>
+<pre><span class="k">class</span> <span class="f">BookView</span>(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)</pre>
+<div class="card b">Har qator = “shu user shu kitobni ko‘rdi”. Soni = ko‘rishlar soni.</div>
+
+<h2>Eng kerakli buyruqlar</h2>
+<pre>Book.objects.filter(user_id=1)     <span class="c"># ro‘yxat</span>
+Book.objects.get(id=5)             <span class="c"># bitta</span>
+Book(name="...", user_id=1).save() <span class="c"># yaratish</span>
+BookView.objects.get_or_create(...) <span class="c"># bor bo‘lsa ol, yo‘q bo‘lsa yarat</span>
+BookView.objects.filter(book=b).count()  <span class="c"># nechta</span></pre>
+
+<div class="warn"><strong>ForeignKey</strong> = boshqa jadvalga bog‘lanish. <code>on_delete=CASCADE</code> = user o‘chsa, uning kitoblari ham o‘chadi.</div>
+
+<div class="drill">
+  <h4>Yoddan yozing (qog‘ozda yoki VS Code da)</h4>
+  <p>Book modelini to‘liq yozib chiqing. Keyin solishtiring.</p>
+</div>
+
+<div class="nav-btns"><a class="sec" href="../02-struktura/index.html">← 2. Tuzilma</a><a href="../04-urls/index.html">4. URLs →</a></div>
+
+
+<p class="play-link"><a href="../app/index.html#/dojo">Shu konseptni o'yna →</a></p>
+
+<section class="code-sync"><h3>Haqiqiy kod (main/models.py:1-16)</h3>
+<pre data-src="main/models.py:1-16">
+from os import name
+from statistics import mode
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Book(models.Model):
+    name = models.CharField(max_length=255)
+    yaratilgan_sanasi = models.DateField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    url = models.CharField(null=True)
+    public = models.BooleanField(default=False)
+
+class BookView(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+</pre></section>
+</main>
+</body>
+</html>
