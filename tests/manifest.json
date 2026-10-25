@@ -1,0 +1,12 @@
+{
+  "core": [
+    "app/js/core/rng.js", "app/js/core/srs.js", "app/js/core/ledger.js", "app/js/core/state.js",
+    "app/js/core/mastery.js", "app/js/core/selector.js", "app/js/core/router.js", "app/js/core/normalize.js",
+    "app/js/core/diff.js", "app/js/core/hl.js", "app/js/core/ui.js", "app/js/core/editor.js"
+  ],
+  "tests": [
+    "tests/t_rng.js", "tests/t_srs.js", "tests/t_ledger.js", "tests/t_state.js", "tests/t_mastery.js",
+    "tests/t_selector.js", "tests/t_router.js", "tests/t_normalize.js", "tests/t_diff.js", "tests/t_hl.js",
+    "tests/t_editor.js", "tests/t_ui.js"
+  ]
+}

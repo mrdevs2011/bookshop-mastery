@@ -1,0 +1,20 @@
+/* editor.css — editor.js uchun */
+.ed{--ed-lh:20px;--ed-rows:6;display:flex;border:1px solid var(--line,#2a2a32);border-radius:10px;background:#0c0c0e;font:13px/20px var(--font-mono,monospace);overflow:hidden;height:calc(var(--ed-rows) * var(--ed-lh) + 24px)}
+.ed-gutter{width:46px;flex-shrink:0;text-align:right;padding:12px 8px 12px 0;color:#555;user-select:none;overflow:hidden;border-right:1px solid var(--line,#2a2a32);background:#0f0f12}
+.ed-ln{height:var(--ed-lh);line-height:var(--ed-lh)}
+.ed-ln.err{color:var(--brand-red);font-weight:700}
+.ed-ln.err::before{content:'●';margin-right:4px;font-size:9px;vertical-align:middle}
+.ed-stack{position:relative;flex:1;min-width:0}
+.ed-hl,.ed-ta{position:absolute;inset:0;margin:0;padding:12px 14px;font:inherit;line-height:var(--ed-lh);white-space:pre;tab-size:4;border:0;background:transparent;border-radius:0}
+.ed-hl{overflow:hidden;color:#e8e4df;pointer-events:none}
+.ed-ta{color:transparent;caret-color:#fff;resize:none;outline:none;overflow:auto}
+.ed-ta::selection{background:rgba(76,201,240,.3)}
+.ed:focus-within{border-color:#555}
+.ed-bands{position:absolute;left:0;right:0;top:12px;pointer-events:none}
+.ed-bands .band{position:absolute;left:0;right:0;height:var(--ed-lh);background:rgba(230,57,70,.15);border-left:3px solid var(--brand-red)}
+.diff-del{background:rgba(230,57,70,.28);border-radius:3px;padding:0 2px;text-decoration:line-through}
+.diff-add{background:rgba(42,157,143,.28);border-radius:3px;padding:0 2px}
+.rep-row{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;font:13px/1.5 var(--font-mono,monospace);margin:4px 0;background:#16161a}
+.rep-row .st{width:18px;flex-shrink:0;text-align:center}
+.rep-row.ok{border-left:3px solid #2a9d8f}.rep-row.changed{border-left:3px solid #f4a261}
+.rep-row.extra{border-left:3px solid #e63946}.rep-row.missing{border-left:3px solid #4cc9f0}

@@ -1,8 +1,8 @@
 
 :root{
   --bg:#0f0f12;--panel:#18181c;--card:#1e1e24;--line:#2a2a32;
-  --text:#eee;--muted:#8a8a96;--red:#e63946;--green:#2a9d8f;
-  --blue:#4cc9f0;--orange:#f4a261;--purple:#9b5de5;
+  --text:#eee;--muted:#8a8a96;--red:var(--brand-red);--green:#2a9d8f;
+  --blue:#4cc9f0;--orange:var(--brand-orange);--purple:#9b5de5;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex}
