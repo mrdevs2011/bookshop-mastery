@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Sahifa topilmadi | BookShop BOMBA</title>
+    <!-- Fonts matching the project style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #f7f3ee;
+            background-image:
+                radial-gradient(ellipse 90% 50% at 50% -15%, rgba(230, 57, 70, 0.08), transparent 55%),
+                linear-gradient(180deg, #faf7f3 0%, #f0ebe4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #2c2c2c;
+        }
+
+        .header {
+            background: #1a1a1a;
+            padding: 0 24px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+            z-index: 10;
+        }
+
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .logo span.red { color: #e63946; }
+        .logo span.orange {
+            color: #f4a261;
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+
+        .nav a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px 72px;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .error-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 48px 40px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.03);
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 48px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .book-wrapper { perspective: 1000px; display: flex; justify-content: center; }
+
+        .book-container {
+            position: relative;
+            width: 200px;
+            height: 280px;
+            transform-style: preserve-3d;
+            transform: rotateY(-18deg) rotateX(8deg);
+            transition: transform 0.5s ease;
+        }
+
+        .error-card:hover .book-container {
+            transform: rotateY(-8deg) rotateX(3deg) scale(1.02);
+        }
+
+        .book-spine {
+            position: absolute; left: 0; top: 0; width: 18px; height: 100%;
+            background: linear-gradient(90deg, #2a2a2a, #4a4a4a, #2a2a2a);
+            border-radius: 3px 0 0 3px;
+            transform: rotateY(-90deg);
+            transform-origin: left;
+        }
+
+        .book-front {
+            position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 0 8px 8px 0;
+            box-shadow: 10px 14px 28px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(255,255,255,0.08);
+            padding: 24px 18px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .book-front::before {
+            content: '';
+            position: absolute;
+            top: 12px; left: 12px; right: 12px; bottom: 12px;
+            border: 1px solid rgba(244, 162, 97, 0.35);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .cover-badge {
+            align-self: flex-start;
+            background: #e63946;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .cover-404 {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 700;
+            color: #f4a261;
+            line-height: 1;
+            margin: 8px 0 4px;
+        }
+
+        .cover-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        .torn-page {
+            position: absolute;
+            right: -8px; top: 16px; bottom: 16px;
+            width: 28px;
+            background: #f5f0e8;
+            border-left: 2px solid #ddd;
+            clip-path: polygon(0% 0%, 100% 5%, 80% 15%, 100% 25%, 75% 38%, 100% 50%, 80% 65%, 100% 78%, 70% 90%, 100% 100%, 0% 100%);
+        }
+
+        .book-pages-side {
+            position: absolute;
+            right: 0; top: 2px;
+            width: 14px; height: 276px;
+            background: linear-gradient(90deg, #e8e2d5, #fff, #d8d2c5);
+            transform: rotateY(90deg) translateZ(194px);
+            transform-origin: right;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .content-area { display: flex; flex-direction: column; align-items: flex-start; }
+
+        .error-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(230, 57, 70, 0.08);
+            color: #e63946;
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .error-tag-dot {
+            width: 7px;
+            height: 7px;
+            background: #e63946;
+            border-radius: 50%;
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .description {
+            font-size: 15px;
+            line-height: 1.55;
+            color: #666;
+            margin-bottom: 22px;
+            max-width: 440px;
+        }
+
+        .humor-box {
+            background: #fdfbf7;
+            border-left: 3px solid #f4a261;
+            padding: 14px 16px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 28px;
+            width: 100%;
+        }
+
+        .humor-box p {
+            font-size: 14px;
+            color: #8b6b45;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #1a1a1a;
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        }
+
+        .btn-primary:hover {
+            background: #e63946;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(230, 57, 70, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f0eae1;
+            color: #333;
+            border: 1px solid #e2dacd;
+        }
+
+        .btn-secondary:hover {
+            background: #e5dfd3;
+            transform: translateY(-1px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: #aaa;
+            font-size: 12px;
+            border-top: 1px solid #e5dfd6;
+        }
+
+        @media (max-width: 800px) {
+            .error-card {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                padding: 36px 24px;
+                text-align: center;
+            }
+            .content-area { align-items: center; }
+            .title { font-size: 26px; }
+            .btn-group { justify-content: center; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header matching main app -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="/book-list/" class="logo">
+                <span class="red">Book</span>Shop
+                <span class="orange">BOMBA</span>
+            </a>
+            <nav class="nav">
+                <a href="/book-list/">← Katalog</a>
+                <a href="/add-book/">+ Yangi kitob</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-container">
+        <div class="error-card">
+            
+            <!-- 3D Book Graphic -->
+            <div class="book-wrapper">
+                <div class="book-container">
+                    <div class="book-spine"></div>
+                    <div class="book-front">
+                        <div class="cover-badge">Yo'qolgan</div>
+                        <div>
+                            <div class="cover-404">404</div>
+                            <div class="cover-subtitle">Sahifa yirtib olingan...</div>
+                        </div>
+                        <div style="font-size: 11px; opacity: 0.6; letter-spacing: 0.5px;">BOMBA EDITION</div>
+                        <div class="torn-page"></div>
+                    </div>
+                    <div class="book-pages-side"></div>
+                </div>
+            </div>
+
+            <!-- Error Info & Humor -->
+            <div class="content-area">
+                <div class="error-tag">
+                    <span class="error-tag-dot"></span>
+                    <span>Xatolik kodi: 404</span>
+                </div>
+
+                <h1 class="title">Stop, stop! Qayerga ketyapsiz?</h1>
+
+                <p class="description">
+                    Siz qidirayotgan sahifa yo‘qolgan, nomi o‘zgargan yoki umuman mavjud bo‘lmagan kitob varag‘i kabi yirtib olingan.
+                </p>
+
+                <div class="humor-box">
+                    <p>
+                        "Bratishka adashib qoldiz shekili! Bu yo'lda kitob ham, fantastika ham yo'q. Qani, kelgan izingizdan sekin surib qolingchi!"
+                    </p>
+                </div>
+
+                <!-- Navigation Action Buttons -->
+                <div class="btn-group">
+                    <a href="/book-list/" class="btn btn-primary">
+                        Katalogga qaytish
+                    </a>
+                    <a href="/" class="btn btn-secondary">
+                        Bosh sahifa
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer matching main site -->
+    <footer class="footer">
+        © 2026 BookShop BOMBA — AtomBomba uslubida
+    </footer>
+
+</body>
+</html>
