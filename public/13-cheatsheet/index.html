@@ -3,20 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cheatsheet</title>
+<title>Cheatsheet — BookShop Tushuntirish</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
-<style>
-body { display: block; }
-.main { max-width: 860px; margin: 0 auto; padding: 36px 24px 80px; }
-.line { display: grid; grid-template-columns: 40px 1fr; gap: 12px; margin: 10px 0; padding: 12px; background: var(--card); border-radius: 10px; border: 1px solid var(--line); }
-.line .n { font-weight: 700; color: #e63946; }
-.back { display: inline-block; margin-bottom: 20px; color: var(--blue); font-weight: 600; text-decoration: none; }
-</style>
 </head>
 <body>
-<div class="main">
-<a class="back" href="javascript:history.back()">← Orqaga</a>
+<aside class="sidebar">
+  <div class="brand">
+    <h1>Book<span>Shop</span></h1>
+    <p>100% tushuntirish · yoddan yozish</p>
+  </div>
+  <a class="switch" href="/app/"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7 3 12l5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Mashq ilovasi</span></a>
+<a class="" href="../index.html">Bosh sahifa</a>
+<div class="sec">ASOSLAR</div>
+<a class="" href="../01-kirish/index.html">1. Kirish</a>
+<a class="" href="../02-struktura/index.html">2. Loyiha tuzilmasi</a>
+<div class="sec">KOD QATLAMLARI</div>
+<a class="" href="../03-models/index.html">3. Models</a>
+<a class="" href="../04-urls/index.html">4. URLs</a>
+<a class="" href="../05-views/index.html">5. Views</a>
+<a class="" href="../06-templates/index.html">6. Templates</a>
+<div class="sec">FUNKSIYALAR</div>
+<a class="" href="../07-auth/index.html">7. Auth (login/signup)</a>
+<a class="" href="../08-kitoblar/index.html">8. Kitoblar</a>
+<div class="sec">MASHQ</div>
+<a class="" href="../09-amaliyot/index.html">9. Amaliyot</a>
+<a class="" href="../10-xotira/index.html">10. Xotiraga yozish</a>
+<div class="sec">QO‘SHIMCHA</div>
+<a class="" href="../11-nolidan/index.html">11. Nolidan qurish</a>
+<a class="" href="../12-xatolar/index.html">12. Xatolar</a>
+<a class="active" href="../13-cheatsheet/index.html">13. Cheatsheet</a>
+<a class="" href="../14-solishtirish/index.html">14. Solishtirish</a>
+
+</aside>
+<main class="main">
 
 <h1 class="page">13. Cheatsheet — bitta sahifada hammasi</h1>
 <h3>Importlar</h3>
@@ -48,8 +68,11 @@ request.GET.get("k")
 request.POST.get("k")
 request.user.id</pre>
 
-</div>
+
+<div class="nav-btns"><a class="sec" href="../12-xatolar/index.html">← 12. Xatolar</a><a href="../14-solishtirish/index.html">14. Solishtirish →</a></div>
+</main>
 <script src="../app/js/core/hl.js"></script>
 <script src="../assets/code.js"></script>
+<script src="../assets/progress.js"></script>
 </body>
 </html>

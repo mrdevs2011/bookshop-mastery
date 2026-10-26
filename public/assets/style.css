@@ -108,3 +108,15 @@ h1.page, h2 { font-family: var(--font-body); font-weight: 800; letter-spacing: -
 .codebar .copy:hover { color: #fff; border-color: var(--red); }
 .codebody { display: flex; }
 .codebody .gutter { padding: 16px 12px 16px 14px; text-align: right; color: #4a4a54; font: 13px/1.5 ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; white-space: pre; user-select: none; border-right: 1px solid var(--line); background: #050505; }
+
+/* v4: o'qish progressi (progress.js) */
+.sidebar .prog { margin-top: 14px; }
+.sidebar .prog .bar { height: 3px; background: #1c1c1c; }
+.sidebar .prog .bar i { display: block; height: 100%; width: 0; background: var(--red); transition: width .25s; }
+.sidebar .prog span { display: block; margin-top: 7px; font: 500 10.5px/1 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .06em; color: #6b6b76; }
+.sidebar a.done::after { content: ''; display: inline-block; width: 5px; height: 9px; margin: 0 0 3px 9px; border: solid var(--green); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.done-btn { display: block; width: 100%; margin-top: 40px; padding: 14px 18px; background: #0a0a0a; border: 1px solid var(--line); color: #fff; font: 600 14px var(--font-body); text-align: left; cursor: pointer; }
+.done-btn:hover { border-color: var(--red); }
+.done-btn.on { border-color: var(--green); color: #9be7da; }
+.done-btn + .nav-btns { margin-top: 20px; }
+.card.continue p { margin: 0; }
