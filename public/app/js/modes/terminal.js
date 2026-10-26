@@ -16,7 +16,7 @@
         BS.ui.h('p', { class: 'sub' }, 'Haqiqiy manage.py chiqishlari (capture_cmds).'),
         sample.map(function (it) {
           return BS.ui.h('div', { class: 'card' },
-            BS.ui.h('pre', null, '$ ' + (it.cmd || it.title || '')),
+            BS.ui.code('sh', '$ ' + (it.cmd || it.title || '')),
             BS.ui.h('pre', { style: { maxHeight: '120px', overflow: 'auto', fontSize: '12px' } }, (it.out || it.clean || '').slice(0, 800)));
         }),
         sample.length ? null : BS.ui.h('p', null, 'terminal.js bo\u2018sh')));

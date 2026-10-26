@@ -35,6 +35,12 @@
   function clear(el) { while (el.firstChild) el.removeChild(el.firstChild); return el; }
   function mount(parent, child) { clear(parent); appendKids(parent, [child]); return parent; }
   function rawHTML(el, html) { el.innerHTML = html; return el; }      // FAQAT hl.js kabi ishonchli manbadan
+  // Rangli kod bloki: <pre> ichiga hl.js chiqishi (hl.js yo'q bo'lsa — oddiy matn).
+  function code(lang, text, props) {
+    var pre = h('pre', props || null);
+    if (BS.hl) rawHTML(pre, BS.hl.highlight(lang, String(text))); else pre.textContent = String(text);
+    return pre;
+  }
 
   function fmtDur(ms) {
     var s = Math.max(0, Math.round(ms / 1000)), m = Math.floor(s / 60);
@@ -64,5 +70,5 @@
     return { close: close, el: back };
   }
 
-  BS.ui = { esc: esc, h: h, clear: clear, mount: mount, rawHTML: rawHTML, fmtDur: fmtDur, fmtPct: fmtPct, toast: toast, modal: modal };
+  BS.ui = { esc: esc, h: h, clear: clear, mount: mount, rawHTML: rawHTML, code: code, fmtDur: fmtDur, fmtPct: fmtPct, toast: toast, modal: modal };
 })();

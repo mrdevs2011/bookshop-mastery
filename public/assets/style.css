@@ -93,3 +93,18 @@ h1.page, h2 { font-family: var(--font-body); font-weight: 800; letter-spacing: -
 *::-webkit-scrollbar-thumb { background: #2a2a2a; border: 2px solid #000; }
 ::selection { background: var(--red); color: #fff; }
 :focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+/* v4: rangli kod bloklari (code.js + hl.js) */
+.tok-kw{color:#ff7b72}.tok-str{color:#a5d6a7}.tok-num{color:#f4a261}.tok-cm{color:#6b6b78;font-style:italic}
+.tok-fn{color:#4cc9f0}.tok-cls{color:#ffd166}.tok-bi{color:#c792ea}.tok-self{color:#ef8fa0;font-style:italic}
+.tok-dec{color:#ffd166}.tok-op{color:#9aa0aa}.tok-tag{color:#ff7b72}.tok-attr{color:#f4a261}
+.tok-var{color:#4cc9f0}.tok-dt{color:#e63946;font-weight:700}.tok-flag{color:#c792ea}.tok-dim{color:#555}
+.codebox { margin: 14px 0 18px; border: 1px solid var(--line); background: var(--code-bg); }
+.codebox pre { margin: 0; border: 0; flex: 1; min-width: 0; }
+.codebar { display: flex; align-items: center; gap: 12px; padding: 7px 12px; background: #0a0a0a; border-bottom: 1px solid var(--line); font: 600 10.5px/1 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .1em; text-transform: uppercase; }
+.codebar .lang { color: var(--orange); }
+.codebar .file { flex: 1; color: #8a8a96; text-transform: none; letter-spacing: 0; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.codebar .copy { background: transparent; color: #aaa; border: 1px solid #262626; padding: 5px 10px; font: inherit; cursor: pointer; }
+.codebar .copy:hover { color: #fff; border-color: var(--red); }
+.codebody { display: flex; }
+.codebody .gutter { padding: 16px 12px 16px 14px; text-align: right; color: #4a4a54; font: 13px/1.5 ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; white-space: pre; user-select: none; border-right: 1px solid var(--line); background: #050505; }

@@ -21,8 +21,8 @@
       var root = BS.ui.h('div', null,
         BS.ui.h('h2', null, 'Diff Duel'),
         BS.ui.h('p', { class: 'sub' }, 'Ikki fragment farqini toping (bir belgi ham bo\u2018lishi mumkin).'),
-        BS.ui.h('div', { class: 'card' }, BS.ui.h('pre', null, 'A:\n' + a)),
-        BS.ui.h('div', { class: 'card' }, BS.ui.h('pre', null, 'B:\n' + b)),
+        BS.ui.h('div', { class: 'card' }, BS.ui.h('p', { class: 'sub' }, 'A'), BS.ui.code('py', a)),
+        BS.ui.h('div', { class: 'card' }, BS.ui.h('p', { class: 'sub' }, 'B'), BS.ui.code('py', b)),
         input,
         BS.ui.h('button', { class: 'btn', onclick: check }, 'Tekshir'),
         msg);

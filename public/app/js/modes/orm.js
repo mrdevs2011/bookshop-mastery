@@ -27,7 +27,7 @@
         var inp = BS.ui.h('input', { type: 'number', placeholder: 'so\u2018rovlar soni' });
         BS.ui.mount(box, BS.ui.h('div', { class: 'card' },
           BS.ui.h('p', null, c.topic + ' · ' + c.id),
-          BS.ui.h('pre', null, c.code),
+          BS.ui.code('py', c.code),
           BS.ui.h('label', null, 'Nechta SQL? ', inp),
           BS.ui.h('button', { class: 'btn', onclick: function () {
             if (parseInt(inp.value, 10) === c.queries) ok++;

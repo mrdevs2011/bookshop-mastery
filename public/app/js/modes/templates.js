@@ -24,7 +24,7 @@
         var inp = BS.ui.h('input', { type: 'text', placeholder: 'render natijasi', style: { width: '100%' } });
         BS.ui.mount(box, BS.ui.h('div', { class: 'card' },
           BS.ui.h('pre', null, 'Kontekst: ' + JSON.stringify(it.ctx)),
-          BS.ui.h('pre', null, it.tpl),
+          BS.ui.code('tpl', it.tpl),
           inp,
           BS.ui.h('button', { class: 'btn', onclick: function () {
             if ((inp.value || '').trim() === it.expect) ok++;

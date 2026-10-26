@@ -196,7 +196,7 @@
     render('/arena', [
       h('h1', { class: 't' }, 'Kod arena'),
       h('p', { class: 'sub' }, 'Namuna kod tepada. Uni muharrirga yozing va “Tekshir”ni bosing — xato qatorlar belgilanadi.'),
-      h('div', { class: 'card' }, h('pre', null, TARGET)),
+      h('div', { class: 'card' }, BS.ui.code('py', TARGET)),
       box,
       h('button', { class: 'btn', onclick: check }, 'Tekshir'),
       out
