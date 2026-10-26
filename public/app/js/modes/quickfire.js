@@ -38,7 +38,7 @@
             var good = (q.accepted || []).indexOf(o) >= 0;
             if (good) { ok++; combo++; } else combo = 0;
             i++;
-            stat.textContent = '✓ ' + ok + ' · combo ' + combo + ' · ' + i + '/' + order.length;
+            stat.textContent = 'To\u2018g\u2018ri ' + ok + ' · combo ' + combo + ' · ' + i + '/' + order.length;
             show();
           }}, o);
         });

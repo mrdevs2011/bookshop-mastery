@@ -34,7 +34,7 @@
     return n;
   }
 
-  var ICONS = { dojo: '🥋', parsons: '🧩', quickfire: '⚡', duel: '⚔️', tracer: '✈️', bughunt: '🐛', matrix: '🔐', orm: '🗄️', migrations: '⏳', templates: '🧱', terminal: '💻', reverse: '🔁', sprint: '🏃', boss: '👹', teachback: '🎓', gauntlet: '🛠️', daily: '📅', chaos: '🌪️' };
+  var ICONS = { dojo: 'braces', parsons: 'layers', quickfire: 'bolt', duel: 'diff', tracer: 'route', bughunt: 'bug', matrix: 'grid', orm: 'db', migrations: 'history', templates: 'layout', terminal: 'terminal', reverse: 'swap', sprint: 'timer', boss: 'crown', teachback: 'present', gauntlet: 'refresh', daily: 'calendar', chaos: 'shuffle' };
   var GROUPS = [
     { title: 'Yoddan yozish', ids: ['dojo', 'parsons', 'templates', 'terminal'] },
     { title: 'Tushunish', ids: ['tracer', 'matrix', 'orm', 'migrations', 'reverse'] },
@@ -43,6 +43,8 @@
   ];
   var MODE_BY_ID = {};
   MODES.forEach(function (m) { MODE_BY_ID[m.id] = m; });
+
+  function ico(name, size) { return h('span', { class: 'ico' }, BS.icon(name, size || 17)); }
 
   function calc() {
     var st = BS.state.get();
@@ -70,7 +72,12 @@
       due: due, pred: pred
     };
   }
-  function tile(v, label) { return h('div', { class: 'stat' }, h('b', null, String(v)), h('span', null, label)); }
+  function tile(v, label, icon) {
+    return h('div', { class: 'stat' },
+      h('span', { class: 'stat-ic' }, BS.icon(icon, 16)),
+      h('b', null, String(v)),
+      h('span', { class: 'stat-l' }, label));
+  }
   function modBars(mods) {
     return mods.map(function (m) {
       var p = m.total ? Math.round(100 * m.done / m.total) : 0;
@@ -83,32 +90,32 @@
   function statTiles(d) {
     var first = d.attempts === 0;
     return h('div', { class: 'stats' },
-      tile(d.st.profile.xp, 'XP'),
-      tile(d.st.profile.streak || 0, '🔥 ketma-ket kun'),
-      tile(d.attempts, 'Urinishlar'),
-      tile(d.acc == null ? '—' : d.acc + '%', 'Aniqlik'),
-      tile(d.mastered + '/' + d.total, 'O‘zlashtirilgan'),
-      tile(first ? '—' : d.pred.band, 'Band (taxmin)'));
+      tile(d.st.profile.xp, 'XP', 'bolt'),
+      tile(d.st.profile.streak || 0, 'Ketma-ket kun', 'flame'),
+      tile(d.attempts, 'Urinishlar', 'target'),
+      tile(d.acc == null ? '—' : d.acc + '%', 'Aniqlik', 'check'),
+      tile(d.mastered + '/' + d.total, 'O‘zlashtirilgan', 'crown'),
+      tile(first ? '—' : d.pred.band, 'Band (taxmin)', 'chart'));
   }
 
   function shell(active, content) {
     var st = BS.state.get(), lv = BS.state.levelFor(st.profile.xp);
     var cur = BS.state.LEVELS[lv.index];
     var pct = lv.next ? Math.min(100, Math.round(100 * (st.profile.xp - cur.xp) / (lv.next.xp - cur.xp))) : 100;
-    function item(path, title, ico) {
+    function item(path, title, icon) {
       return h('a', { href: '#' + path, class: 'nav-item' + (active === path ? ' active' : ''), style: { textDecoration: 'none' } },
-        h('span', { class: 'ico' }, ico), title);
+        ico(icon), h('span', null, title));
     }
-    var top = [item('/', 'Bosh', '🏠'), item('/arena', 'Kod arena', '⌨️'), item('/stats', 'Statistika', '📊'), item('/exam', 'Imtihon 9.0', '🎓')];
+    var top = [item('/', 'Bosh', 'home'), item('/arena', 'Kod arena', 'code'), item('/stats', 'Statistika', 'chart'), item('/exam', 'Imtihon 9.0', 'exam')];
     var groups = GROUPS.map(function (g) {
       return [h('div', { class: 'nav-group' }, g.title)].concat(g.ids.map(function (id) {
         var m = MODE_BY_ID[id];
-        return item(m.path, m.title, ICONS[id] || '•');
+        return item(m.path, m.title, ICONS[id] || 'dot');
       }));
     });
     return [
       h('div', { class: 'menubar' },
-        h('button', { class: 'menu-btn', 'aria-label': 'Menyuni ochish', onclick: function () { document.body.classList.toggle('nav-open'); } }, '☰'),
+        h('button', { class: 'menu-btn', 'aria-label': 'Menyuni ochish', onclick: function () { document.body.classList.toggle('nav-open'); } }, BS.icon('menu', 22)),
         h('strong', null, 'BookShop Mastery')),
       h('div', { class: 'scrim', onclick: function () { document.body.classList.remove('nav-open'); } }),
       h('nav', { class: 'sidebar', 'aria-label': 'Asosiy menyu' },
@@ -116,10 +123,10 @@
           h('h1', null, 'BookShop ', h('span', null, 'Mastery')),
           h('p', null, 'Engine · v' + BS.version)),
         h('div', { class: 'lvl' },
-          h('div', { class: 'lvl-top' }, h('span', null, lv.name), h('small', null, '🔥 ' + (st.profile.streak || 0))),
+          h('div', { class: 'lvl-top' }, h('span', null, lv.name), h('span', { class: 'streak' }, BS.icon('flame', 14), String(st.profile.streak || 0))),
           h('div', { class: 'progress-bar' }, h('i', { style: { width: pct + '%' } })),
           h('small', null, st.profile.xp + (lv.next ? ' / ' + lv.next.xp : '') + ' XP')),
-        h('a', { href: '../index.html', class: 'nav-item switch', style: { textDecoration: 'none' } }, h('span', { class: 'ico' }, '📚'), 'Darslik'),
+        h('a', { href: '../index.html', class: 'nav-item switch', style: { textDecoration: 'none' } }, ico('book'), h('span', null, 'Darslik')),
         top, groups),
       h('main', { class: 'main', id: 'main-content' }, content)
     ];
@@ -135,20 +142,22 @@
     var d = calc(), first = d.attempts === 0;
     function modeCard(id) {
       var m = MODE_BY_ID[id];
+      var n = ('0' + (MODES.indexOf(m) + 1)).slice(-2);
       return h('a', { href: '#' + m.path, class: 'card', style: { textDecoration: 'none', color: 'inherit' } },
-        h('span', { class: 'mode-ico' }, ICONS[id] || '•'),
-        h('span', { class: 'mode-txt' }, h('strong', null, m.title), h('small', null, m.desc || '')));
+        h('span', { class: 'mode-ico' }, BS.icon(ICONS[id] || 'dot', 20)),
+        h('span', { class: 'mode-txt' }, h('strong', null, m.title), h('small', null, m.desc || '')),
+        h('span', { class: 'mode-n' }, n));
     }
     var kids = [
       h('div', { class: 'hero' },
-        h('h1', { class: 't' }, first ? 'Xush kelibsiz! 👋' : 'Davom etamiz 💪'),
+        h('h1', { class: 't' }, first ? 'Xush kelibsiz' : 'Davom etamiz'),
         h('p', { class: 'sub' }, first
           ? 'Boshlash uchun “Syntax Dojo”ni oching — kodni yoddan yozishni mashq qilasiz.'
           : 'Kunlik missiya va takrorlarni bajarib, darajangizni oshiring.'),
         h('div', { class: 'row' },
-          h('a', { href: '#/daily', class: 'btn' }, '📅 Kunlik missiya'),
-          h('a', { href: '#/dojo', class: 'btn sec' }, '🥋 Syntax Dojo'),
-          h('a', { href: '#/exam', class: 'btn sec' }, '🎓 Imtihon 9.0')))
+          h('a', { href: '#/daily', class: 'btn' }, BS.icon('calendar', 16), 'Kunlik missiya'),
+          h('a', { href: '#/dojo', class: 'btn sec' }, BS.icon('braces', 16), 'Syntax Dojo'),
+          h('a', { href: '#/exam', class: 'btn sec' }, BS.icon('exam', 16), 'Imtihon 9.0')))
     ];
     if (first) {
       kids.push(h('div', { class: 'card start' },
@@ -157,13 +166,14 @@
         h('div', { class: 'step' }, h('span', { class: 'num' }, '2'), h('div', null, 'Quyidagi rejimlardan birini tanlang — Syntax Dojo yoki Quick-Fire yaxshi boshlanish.')),
         h('div', { class: 'step' }, h('span', { class: 'num' }, '3'), h('div', null, 'Haftada bir marta “Imtihon 9.0” ni topshiring.'))));
     }
-    if (d.due > 0) kids.push(h('div', { class: 'due' }, '⏰ ' + d.due + ' ta takror muddati kelgan — yangi mavzudan oldin ularni takrorlang.'));
+    if (d.due > 0) kids.push(h('div', { class: 'due' }, BS.icon('clock', 18), h('span', null, d.due + ' ta takror muddati kelgan — yangi mavzudan oldin ularni takrorlang.')));
     kids.push(statTiles(d));
     GROUPS.forEach(function (g) {
       kids.push(h('h2', { class: 'group-title' }, g.title));
       kids.push(h('div', { class: 'mode-grid' }, g.ids.map(modeCard)));
     });
-    kids.push(h('div', { class: 'card' }, h('h3', null, 'Modullar bo‘yicha o‘zlashtirish'), modBars(d.mods)));
+    kids.push(h('h2', { class: 'group-title' }, 'Modullar'));
+    kids.push(h('div', { class: 'card' }, modBars(d.mods)));
     var nB = (BS.data && BS.data.bugs) ? BS.data.bugs.length : 0;
     var nE = (BS.data && BS.data.exam_bank) ? BS.data.exam_bank.length : 0;
     kids.push(h('p', { class: 'sub foot' },
@@ -195,19 +205,20 @@
   }
 
   function stats() {
-    var d = calc();
+    var d = calc(), intact = BS.state.checkIntegrity().ok;
     render('/stats', [
       h('h1', { class: 't' }, 'Statistika'),
       h('p', { class: 'sub' }, 'Qancha mashq qilganingiz va qaysi modullar o‘zlashtirilgani.'),
       statTiles(d),
-      h('div', { class: 'card' }, h('h3', null, 'Modullar bo‘yicha o‘zlashtirish'), modBars(d.mods)),
+      h('h2', { class: 'group-title' }, 'Modullar'),
+      h('div', { class: 'card' }, modBars(d.mods)),
       h('div', { class: 'card' },
         h('h3', null, 'Band bashorati'),
         h('p', { class: 'score' }, String(d.attempts === 0 ? '—' : d.pred.band)),
         h('p', { class: 'sub' }, 'Taxminiy: ' + d.pred.total + '/100')),
       h('div', { class: 'card' },
         h('h3', null, 'Yaxlitlik'),
-        h('p', null, BS.state.checkIntegrity().ok ? 'Natijalar jurnali butun ✅' : 'Natijalar jurnali BUZILGAN ⚠️'))
+        h('p', { class: 'ok-line' }, BS.icon(intact ? 'check' : 'warn', 16), intact ? 'Natijalar jurnali butun' : 'Natijalar jurnali BUZILGAN'))
     ]);
   }
 
