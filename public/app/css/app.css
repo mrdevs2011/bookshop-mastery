@@ -105,3 +105,13 @@ h1.t{color:#fff;font-weight:800;letter-spacing:-0.02em}
 #app{display:flex;flex:1;width:100%;min-height:100vh}
 #app > div[style*="contents"]{display:flex!important;flex:1;width:100%;min-height:100vh}
 .sidebar{background:#0e0e12}
+
+/* darslik bilan yagona ko'rinish */
+html{color-scheme:dark}
+.sidebar{width:260px}
+.main{max-width:880px;padding:36px 40px 100px}
+.brand h1{font-family:var(--font-display);font-size:20px;color:#fff}
+h1.t{font-family:var(--font-display);font-size:32px}
+.nav-item.switch{color:#fff;background:rgba(230,57,70,.12);border-left-color:var(--red);margin:4px 0 10px;font-weight:600}
+.nav-item.switch:hover{background:rgba(230,57,70,.22)}
+.mode-grid .card small{display:block;margin-top:6px;font-size:12px;font-weight:400;color:var(--muted);line-height:1.4}

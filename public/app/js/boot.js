@@ -5,24 +5,24 @@
   BS.version = '1.0';
   var CORE = ['rng', 'srs', 'ledger', 'state', 'mastery', 'selector', 'router', 'normalize', 'diff', 'hl', 'ui', 'editor'];
   var MODES = [
-    { path: '/dojo', id: 'dojo', title: 'Syntax Dojo' },
-    { path: '/parsons', id: 'parsons', title: 'Parsons+' },
-    { path: '/quickfire', id: 'quickfire', title: 'Quick-Fire' },
-    { path: '/duel', id: 'duel', title: 'Diff Duel' },
-    { path: '/tracer', id: 'tracer', title: 'Request Flight' },
-    { path: '/bughunt', id: 'bughunt', title: 'Bug Hunt' },
-    { path: '/matrix', id: 'matrix', title: 'Permission Matrix' },
-    { path: '/orm', id: 'orm', title: 'ORM Arena' },
-    { path: '/migrations', id: 'migrations', title: 'Migration TM' },
-    { path: '/templates', id: 'templates', title: 'Template Forge' },
-    { path: '/terminal', id: 'terminal', title: 'Terminal' },
-    { path: '/reverse', id: 'reverse', title: 'Reverse Engineer' },
-    { path: '/sprint', id: 'sprint', title: 'Sprint' },
-    { path: '/boss', id: 'boss', title: 'Boss Fight' },
-    { path: '/teachback', id: 'teachback', title: 'Teach-back' },
-    { path: '/gauntlet', id: 'gauntlet', title: 'Refactor Gauntlet' },
-    { path: '/daily', id: 'daily', title: 'Daily Mission' },
-    { path: '/chaos', id: 'chaos', title: 'Chaos Mode' }
+    { path: '/dojo', id: 'dojo', title: 'Syntax Dojo', desc: 'Kodni yoddan yozib sintaksisni qotir' },
+    { path: '/parsons', id: 'parsons', title: 'Parsons+', desc: 'Aralash qatorlarni to‘g‘ri tartibga qo‘y' },
+    { path: '/quickfire', id: 'quickfire', title: 'Quick-Fire', desc: 'Tez test savollari, ketma-ket to‘g‘ri javob — combo' },
+    { path: '/duel', id: 'duel', title: 'Diff Duel', desc: 'Deyarli bir xil ikki koddagi farqni top' },
+    { path: '/tracer', id: 'tracer', title: 'Request Flight', desc: 'Ssenariy bo‘yicha status va redirectni top' },
+    { path: '/bughunt', id: 'bughunt', title: 'Bug Hunt', desc: 'Koddagi haqiqiy xatoni (B01–B22) top' },
+    { path: '/matrix', id: 'matrix', title: 'Permission Matrix', desc: 'Kim nimaga kira olishini aniqla' },
+    { path: '/orm', id: 'orm', title: 'ORM Arena', desc: 'ORM so‘rovi qanday SQL va natija berishini ayt' },
+    { path: '/migrations', id: 'migrations', title: 'Migration TM', desc: 'Migratsiyalarni to‘g‘ri tartibga qo‘y' },
+    { path: '/templates', id: 'templates', title: 'Template Forge', desc: 'Shablon natijasini oldindan ayt' },
+    { path: '/terminal', id: 'terminal', title: 'Terminal', desc: 'Terminal buyruqlari qanday natija beradi' },
+    { path: '/reverse', id: 'reverse', title: 'Reverse Engineer', desc: 'Javobga qarab kodni tikla' },
+    { path: '/sprint', id: 'sprint', title: 'Sprint', desc: '20 qadamli mini-BookShop' },
+    { path: '/boss', id: 'boss', title: 'Boss Fight', desc: 'Modul oxiridagi yakuniy sinov' },
+    { path: '/teachback', id: 'teachback', title: 'Teach-back', desc: 'O‘zing tushuntirib berib mustahkamla' },
+    { path: '/gauntlet', id: 'gauntlet', title: 'Refactor Gauntlet', desc: 'Kodni yaxshilash mashqlari' },
+    { path: '/daily', id: 'daily', title: 'Daily Mission', desc: 'Har kungi qisqa missiya' },
+    { path: '/chaos', id: 'chaos', title: 'Chaos Mode', desc: 'Qiyin aralash savollar' }
   ];
 
   function countQuestions() {
@@ -64,8 +64,8 @@
                   : '100%'
               }
             }))),
-        nav,
-        h('a', { href: '../index.html', class: 'nav-item', style: { textDecoration: 'none' } }, 'Darslik →')),
+        h('a', { href: '../index.html', class: 'nav-item switch', style: { textDecoration: 'none' } }, '📚 Darslik →'),
+        nav),
       h('main', { class: 'main', id: 'main-content' }, content)
     ];
   }
@@ -88,9 +88,12 @@
       h('h1', { class: 't' }, 'BookShop Mastery'),
       h('p', { class: 'sub' }, 'Django · o\u2018zbekcha · adaptiv · BOOKSHOP 9.0'),
       h('div', { class: 'card' },
-        h('h3', null, 'Bank'),
+        h('h3', null, 'Qayerdan boshlayman?'),
+        h('p', null, '1) Chap menyudagi “Darslik”ni o‘qing. 2) Quyidagi rejimlardan birini tanlang — boshlash uchun Syntax Dojo yoki Quick-Fire yaxshi. 3) Haftada bir marta “Imtihon 9.0” ni topshiring.')),
+      h('div', { class: 'card' },
+        h('h3', null, 'Ichida nimalar bor'),
         h('p', null, 'Konsept: ' + nC + ' · Bug: ' + nB + ' · Mashq: ' + nQ + ' · Imtihon: ' + nE),
-        h('p', { class: 'sub', id: 'offline-badge' }, 'Rejim: offline (Vercel/static — grader API yo‘q)')),
+        h('p', { class: 'sub', id: 'offline-badge' }, 'Natijalaringiz shu qurilmada (brauzer xotirasida) saqlanadi')),
       h('div', { class: 'card' },
         h('h3', null, 'Band bashorati'),
         h('p', { class: 'score' }, String(pred.band),
@@ -102,7 +105,7 @@
             href: '#' + m.path,
             class: 'card',
             style: { textDecoration: 'none', color: 'inherit' }
-          }, h('strong', null, m.title));
+          }, h('strong', null, m.title), h('small', null, m.desc || ''));
         }))),
       h('div', { class: 'card' },
         h('h3', null, 'Tez yo\u2018llar'),
@@ -112,11 +115,6 @@
           h('a', { href: '#/dojo', class: 'btn sec' }, 'Dojo'),
           ' ',
           h('a', { href: '#/stats', class: 'btn sec' }, 'Statistika'))),
-      h('div', { class: 'card' },
-        h('h3', null, 'Yadro'),
-        h('ul', { class: 'core-list' }, CORE.map(function (m) {
-          return h('li', null, (BS[m] ? '\u2705 ' : '\u274c ') + m);
-        }))),
       h('div', { class: 'card' },
         h('h3', null, 'Holat'),
         h('p', { class: 'score' },
