@@ -34,93 +34,141 @@
     return n;
   }
 
+  var ICONS = { dojo: '🥋', parsons: '🧩', quickfire: '⚡', duel: '⚔️', tracer: '✈️', bughunt: '🐛', matrix: '🔐', orm: '🗄️', migrations: '⏳', templates: '🧱', terminal: '💻', reverse: '🔁', sprint: '🏃', boss: '👹', teachback: '🎓', gauntlet: '🛠️', daily: '📅', chaos: '🌪️' };
+  var GROUPS = [
+    { title: 'Yoddan yozish', ids: ['dojo', 'parsons', 'templates', 'terminal'] },
+    { title: 'Tushunish', ids: ['tracer', 'matrix', 'orm', 'migrations', 'reverse'] },
+    { title: 'Xato topish', ids: ['duel', 'bughunt', 'chaos'] },
+    { title: 'Tezlik va sinov', ids: ['quickfire', 'sprint', 'boss', 'daily', 'teachback', 'gauntlet'] }
+  ];
+  var MODE_BY_ID = {};
+  MODES.forEach(function (m) { MODE_BY_ID[m.id] = m; });
+
+  function calc() {
+    var st = BS.state.get();
+    var today = BS.srs ? BS.srs.today() : 0;
+    var concepts = (BS.data && BS.data.concepts) || [];
+    var mastered = 0, byMod = {}, order = [];
+    concepts.forEach(function (c) {
+      var m = c.modul || '?';
+      if (!byMod[m]) { byMod[m] = { id: m, total: 0, done: 0 }; order.push(m); }
+      byMod[m].total++;
+      var r = st.concepts[c.id];
+      if (r && BS.mastery && BS.mastery.isMastered(r, today)) { mastered++; byMod[m].done++; }
+    });
+    var thr = (BS.mastery && BS.mastery.SUCCESS) || 0.6, ok = 0;
+    st.ledger.forEach(function (e) { if (e && e.res >= thr) ok++; });
+    var due = 0;
+    try { due = BS.mastery.dueList(st, today).length; } catch (e) { due = 0; }
+    var pred = { band: '—', total: 0 };
+    try { if (BS.examScoring) pred = BS.examScoring.predictBand(st); } catch (e) { /* bashorat ixtiyoriy */ }
+    return {
+      st: st, today: today, total: concepts.length, mastered: mastered,
+      mods: order.sort().map(function (k) { return byMod[k]; }),
+      attempts: st.ledger.length,
+      acc: st.ledger.length ? Math.round(100 * ok / st.ledger.length) : null,
+      due: due, pred: pred
+    };
+  }
+  function tile(v, label) { return h('div', { class: 'stat' }, h('b', null, String(v)), h('span', null, label)); }
+  function modBars(mods) {
+    return mods.map(function (m) {
+      var p = m.total ? Math.round(100 * m.done / m.total) : 0;
+      return h('div', { class: 'mod-row' },
+        h('span', { class: 'nm' }, 'Modul ' + String(m.id).replace(/^M/, '')),
+        h('div', { class: 'bar' }, h('i', { style: { width: p + '%' } })),
+        h('span', { class: 'ct' }, m.done + '/' + m.total));
+    });
+  }
+  function statTiles(d) {
+    var first = d.attempts === 0;
+    return h('div', { class: 'stats' },
+      tile(d.st.profile.xp, 'XP'),
+      tile(d.st.profile.streak || 0, '🔥 ketma-ket kun'),
+      tile(d.attempts, 'Urinishlar'),
+      tile(d.acc == null ? '—' : d.acc + '%', 'Aniqlik'),
+      tile(d.mastered + '/' + d.total, 'O‘zlashtirilgan'),
+      tile(first ? '—' : d.pred.band, 'Band (taxmin)'));
+  }
+
   function shell(active, content) {
     var st = BS.state.get(), lv = BS.state.levelFor(st.profile.xp);
-    var links = [
-      ['/', 'Bosh'],
-      ['/arena', 'Kod arena'],
-      ['/stats', 'Statistika'],
-      ['/exam', 'Imtihon 9.0']
-    ].concat(MODES.map(function (m) { return [m.path, m.title]; }));
-    var nav = links.map(function (n) {
-      return h('a', {
-        href: '#' + n[0],
-        class: 'nav-item' + (active === n[0] ? ' active' : ''),
-        style: { textDecoration: 'none' }
-      }, n[1]);
+    var cur = BS.state.LEVELS[lv.index];
+    var pct = lv.next ? Math.min(100, Math.round(100 * (st.profile.xp - cur.xp) / (lv.next.xp - cur.xp))) : 100;
+    function item(path, title, ico) {
+      return h('a', { href: '#' + path, class: 'nav-item' + (active === path ? ' active' : ''), style: { textDecoration: 'none' } },
+        h('span', { class: 'ico' }, ico), title);
+    }
+    var top = [item('/', 'Bosh', '🏠'), item('/arena', 'Kod arena', '⌨️'), item('/stats', 'Statistika', '📊'), item('/exam', 'Imtihon 9.0', '🎓')];
+    var groups = GROUPS.map(function (g) {
+      return [h('div', { class: 'nav-group' }, g.title)].concat(g.ids.map(function (id) {
+        var m = MODE_BY_ID[id];
+        return item(m.path, m.title, ICONS[id] || '•');
+      }));
     });
     return [
+      h('div', { class: 'menubar' },
+        h('button', { class: 'menu-btn', 'aria-label': 'Menyuni ochish', onclick: function () { document.body.classList.toggle('nav-open'); } }, '☰'),
+        h('strong', null, 'BookShop Mastery')),
+      h('div', { class: 'scrim', onclick: function () { document.body.classList.remove('nav-open'); } }),
       h('nav', { class: 'sidebar', 'aria-label': 'Asosiy menyu' },
         h('div', { class: 'brand' },
           h('h1', null, 'BookShop ', h('span', null, 'Mastery')),
           h('p', null, 'Engine · v' + BS.version)),
-        h('div', { class: 'progress-wrap' },
-          lv.name + ' · ' + st.profile.xp + ' XP',
-          h('div', { class: 'progress-bar' },
-            h('i', {
-              style: {
-                width: lv.next
-                  ? Math.min(100, 100 * (st.profile.xp - BS.state.LEVELS[lv.index].xp) / (lv.next.xp - BS.state.LEVELS[lv.index].xp)) + '%'
-                  : '100%'
-              }
-            }))),
-        h('a', { href: '../index.html', class: 'nav-item switch', style: { textDecoration: 'none' } }, '📚 Darslik →'),
-        nav),
+        h('div', { class: 'lvl' },
+          h('div', { class: 'lvl-top' }, h('span', null, lv.name), h('small', null, '🔥 ' + (st.profile.streak || 0))),
+          h('div', { class: 'progress-bar' }, h('i', { style: { width: pct + '%' } })),
+          h('small', null, st.profile.xp + (lv.next ? ' / ' + lv.next.xp : '') + ' XP')),
+        h('a', { href: '../index.html', class: 'nav-item switch', style: { textDecoration: 'none' } }, h('span', { class: 'ico' }, '📚'), 'Darslik'),
+        top, groups),
       h('main', { class: 'main', id: 'main-content' }, content)
     ];
   }
 
   function render(active, content) {
+    document.body.classList.remove('nav-open');
     BS.ui.mount(document.getElementById('app'), h('div', { style: { display: 'contents' } }, shell(active, content)));
+    try { window.scrollTo(0, 0); } catch (e) { /* ixtiyoriy */ }
   }
 
   function home() {
-    var st = BS.state.get(), v = BS.state.checkIntegrity();
-    var nC = (BS.data && BS.data.concepts) ? BS.data.concepts.length : 0;
-    var nB = (BS.data && BS.data.bugs) ? BS.data.bugs.length : 0;
-    var nQ = countQuestions();
-    var nE = (BS.data && BS.data.exam_bank) ? BS.data.exam_bank.length : 0;
-    var pred = { band: '—', total: '—' };
-    try {
-      if (BS.examScoring) pred = BS.examScoring.predictBand(st);
-    } catch (e) {}
-    render('/', [
-      h('h1', { class: 't' }, 'BookShop Mastery'),
-      h('p', { class: 'sub' }, 'Django · o\u2018zbekcha · adaptiv · BOOKSHOP 9.0'),
-      h('div', { class: 'card' },
+    var d = calc(), first = d.attempts === 0;
+    function modeCard(id) {
+      var m = MODE_BY_ID[id];
+      return h('a', { href: '#' + m.path, class: 'card', style: { textDecoration: 'none', color: 'inherit' } },
+        h('span', { class: 'mode-ico' }, ICONS[id] || '•'),
+        h('span', { class: 'mode-txt' }, h('strong', null, m.title), h('small', null, m.desc || '')));
+    }
+    var kids = [
+      h('div', { class: 'hero' },
+        h('h1', { class: 't' }, first ? 'Xush kelibsiz! 👋' : 'Davom etamiz 💪'),
+        h('p', { class: 'sub' }, first
+          ? 'Boshlash uchun “Syntax Dojo”ni oching — kodni yoddan yozishni mashq qilasiz.'
+          : 'Kunlik missiya va takrorlarni bajarib, darajangizni oshiring.'),
+        h('div', { class: 'row' },
+          h('a', { href: '#/daily', class: 'btn' }, '📅 Kunlik missiya'),
+          h('a', { href: '#/dojo', class: 'btn sec' }, '🥋 Syntax Dojo'),
+          h('a', { href: '#/exam', class: 'btn sec' }, '🎓 Imtihon 9.0')))
+    ];
+    if (first) {
+      kids.push(h('div', { class: 'card start' },
         h('h3', null, 'Qayerdan boshlayman?'),
-        h('p', null, '1) Chap menyudagi “Darslik”ni o‘qing. 2) Quyidagi rejimlardan birini tanlang — boshlash uchun Syntax Dojo yoki Quick-Fire yaxshi. 3) Haftada bir marta “Imtihon 9.0” ni topshiring.')),
-      h('div', { class: 'card' },
-        h('h3', null, 'Ichida nimalar bor'),
-        h('p', null, 'Konsept: ' + nC + ' · Bug: ' + nB + ' · Mashq: ' + nQ + ' · Imtihon: ' + nE),
-        h('p', { class: 'sub', id: 'offline-badge' }, 'Natijalaringiz shu qurilmada (brauzer xotirasida) saqlanadi')),
-      h('div', { class: 'card' },
-        h('h3', null, 'Band bashorati'),
-        h('p', { class: 'score' }, String(pred.band),
-          h('span', { class: 'sub' }, ' taxminiy ball ' + pred.total))),
-      h('div', { class: 'card' },
-        h('h3', null, 'Rejimlar'),
-        h('div', { class: 'mode-grid' }, MODES.map(function (m) {
-          return h('a', {
-            href: '#' + m.path,
-            class: 'card',
-            style: { textDecoration: 'none', color: 'inherit' }
-          }, h('strong', null, m.title), h('small', null, m.desc || ''));
-        }))),
-      h('div', { class: 'card' },
-        h('h3', null, 'Tez yo\u2018llar'),
-        h('p', null,
-          h('a', { href: '#/exam', class: 'btn' }, 'Imtihon'),
-          ' ',
-          h('a', { href: '#/dojo', class: 'btn sec' }, 'Dojo'),
-          ' ',
-          h('a', { href: '#/stats', class: 'btn sec' }, 'Statistika'))),
-      h('div', { class: 'card' },
-        h('h3', null, 'Holat'),
-        h('p', { class: 'score' },
-          'Urinishlar: ' + st.ledger.length + ' · yaxlitlik: ',
-          h('b', null, v.ok ? 'butun' : 'BUZILGAN')))
-    ]);
+        h('div', { class: 'step' }, h('span', { class: 'num' }, '1'), h('div', null, 'Darslikni o‘qing (chap menyudagi “Darslik”).')),
+        h('div', { class: 'step' }, h('span', { class: 'num' }, '2'), h('div', null, 'Quyidagi rejimlardan birini tanlang — Syntax Dojo yoki Quick-Fire yaxshi boshlanish.')),
+        h('div', { class: 'step' }, h('span', { class: 'num' }, '3'), h('div', null, 'Haftada bir marta “Imtihon 9.0” ni topshiring.'))));
+    }
+    if (d.due > 0) kids.push(h('div', { class: 'due' }, '⏰ ' + d.due + ' ta takror muddati kelgan — yangi mavzudan oldin ularni takrorlang.'));
+    kids.push(statTiles(d));
+    GROUPS.forEach(function (g) {
+      kids.push(h('h2', { class: 'group-title' }, g.title));
+      kids.push(h('div', { class: 'mode-grid' }, g.ids.map(modeCard)));
+    });
+    kids.push(h('div', { class: 'card' }, h('h3', null, 'Modullar bo‘yicha o‘zlashtirish'), modBars(d.mods)));
+    var nB = (BS.data && BS.data.bugs) ? BS.data.bugs.length : 0;
+    var nE = (BS.data && BS.data.exam_bank) ? BS.data.exam_bank.length : 0;
+    kids.push(h('p', { class: 'sub foot' },
+      'Bazada: ' + d.total + ' konsept · ' + countQuestions() + ' mashq · ' + nE + ' imtihon savoli · ' + nB + ' bug. Natijalaringiz shu qurilmada (brauzer xotirasida) saqlanadi.'));
+    render('/', kids);
   }
 
   function arena() {
@@ -137,6 +185,7 @@
     }
     render('/arena', [
       h('h1', { class: 't' }, 'Kod arena'),
+      h('p', { class: 'sub' }, 'Namuna kod tepada. Uni muharrirga yozing va “Tekshir”ni bosing — xato qatorlar belgilanadi.'),
       h('div', { class: 'card' }, h('pre', null, TARGET)),
       box,
       h('button', { class: 'btn', onclick: check }, 'Tekshir'),
@@ -146,34 +195,19 @@
   }
 
   function stats() {
-    var st = BS.state.get();
-    var today = BS.srs ? BS.srs.today() : 0;
-    var concepts = (BS.data && BS.data.concepts) || [];
-    var mastered = 0, sum = 0, n = 0;
-    concepts.forEach(function (c) {
-      var r = st.concepts[c.id];
-      if (!r) return;
-      n++;
-      var eff = BS.mastery ? BS.mastery.effectiveScore(r, today) : (r.score || 0);
-      sum += eff;
-      if (BS.mastery && BS.mastery.isMastered(r, today)) mastered++;
-    });
-    var avg = n ? Math.round(sum / n) : 0;
-    var pred = BS.examScoring ? BS.examScoring.predictBand(st) : { band: '—', total: 0 };
+    var d = calc();
     render('/stats', [
       h('h1', { class: 't' }, 'Statistika'),
-      h('div', { class: 'card' },
-        h('h3', null, 'Mastery'),
-        h('p', null, 'O\u2018zlashtirilgan: ' + mastered + ' / ' + concepts.length),
-        h('p', null, 'O\u2018rtacha samarali ball: ' + avg),
-        h('p', null, 'Ledger yozuvlari: ' + st.ledger.length)),
+      h('p', { class: 'sub' }, 'Qancha mashq qilganingiz va qaysi modullar o‘zlashtirilgani.'),
+      statTiles(d),
+      h('div', { class: 'card' }, h('h3', null, 'Modullar bo‘yicha o‘zlashtirish'), modBars(d.mods)),
       h('div', { class: 'card' },
         h('h3', null, 'Band bashorati'),
-        h('p', { class: 'score' }, String(pred.band)),
-        h('p', { class: 'sub' }, 'Taxminiy: ' + pred.total + '/100')),
+        h('p', { class: 'score' }, String(d.attempts === 0 ? '—' : d.pred.band)),
+        h('p', { class: 'sub' }, 'Taxminiy: ' + d.pred.total + '/100')),
       h('div', { class: 'card' },
         h('h3', null, 'Yaxlitlik'),
-        h('p', null, BS.state.checkIntegrity().ok ? 'Ledger butun' : 'Ledger BUZILGAN'))
+        h('p', null, BS.state.checkIntegrity().ok ? 'Natijalar jurnali butun ✅' : 'Natijalar jurnali BUZILGAN ⚠️'))
     ]);
   }
 
