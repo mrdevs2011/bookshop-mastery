@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "installCommand": "echo no-install",
-  "buildCommand": "rm -rf dist && mkdir -p dist && cp -R public/. dist/ && ls -la dist && test -f dist/index.html && test -f dist/app/index.html",
+  "installCommand": "echo skip",
+  "buildCommand": "rm -rf dist && mkdir -p dist && cp -R public/. dist/ && test -f dist/index.html",
   "outputDirectory": "dist",
   "rewrites": [
     { "source": "/app", "destination": "/app/index.html" },

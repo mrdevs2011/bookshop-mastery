@@ -8,6 +8,7 @@ node_modules
 .venv
 __pycache__
 *.pyc
+*.py
 PROMPT.md
 GROUND_TRUTH.md
 GROUND_TRUTH.sha256
