@@ -1,8 +1,0 @@
-@page { size: A4; margin: 2cm; }
-body { font-family: Georgia, 'Times New Roman', serif; color: #111; }
-.cert { text-align: center; border: 4px double #e63946; padding: 2cm; }
-.cert h1 { letter-spacing: 0.15em; color: #e63946; margin: 0; }
-.cert .sub { color: #666; }
-.cert .name { font-size: 1.6em; margin: 1.2em 0 0.4em; }
-.cert .band { font-size: 1.4em; }
-.cert .meta, .cert .foot { font-size: 0.85em; color: #444; margin-top: 1.5em; }
